@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>무드 구름 - 감정을 담는 구름</title>
+  <link rel="stylesheet" href="/public/login/login.css">
+</head>
+<body>
+  <!-- 배경 구름 -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="cloud cloud-4"></div>
+  <div class="cloud cloud-5"></div>
+
+  
+  <!-- 메인 랜딩 컨테이너 -->
+  <div class="landing-container">
+    <div class="logo-container" id="mainLogo">
+      <img src="/public/logo/logo2.png" alt="무드 구름 로고" class="main-logo">
+    </div>
+    <h1 class="app-title">Mood Cloud</h1>
+    <p class="app-desc">당신의 감정을 담는 구름</p>
+    <button class="start-btn" id="startBtn">시작하기</button>
+  </div>
+
+  <!-- 모달 배경 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <!-- 모달 -->
+    <div class="modal">
+      <!-- 모달 로고 (축소된 로고가 모달 위에 겹침) -->
+      <div class="modal-logo" id="modalLogo">
+        <img src="/public/logo/logo2.png" alt="무드 구름 로고">
+      </div>
+      
+      <!-- 모달 헤더 (탭) -->
+      <div class="modal-header">
+        <div class="tab active" onclick="switchTab('login')">로그인</div>
+        <div class="tab" onclick="switchTab('signup')">회원가입</div>
+      </div>
+      
+      <!-- 모달 본문 -->
+      <div class="modal-body">
+        <button class="close-button" onclick="closeModal()">×</button>
+        
+        <!-- 로그인 폼 -->
+        <div class="form-content active" id="loginForm">
+          <h2>환영합니다</h2>
+          <form>
+            <div class="form-group">
+              <label for="login-username">아이디</label>
+              <input type="text" id="login-username" placeholder="아이디를 입력하세요">
+            </div>
+            <div class="form-group">
+              <label for="login-password">비밀번호</label>
+              <input type="password" id="login-password" placeholder="비밀번호를 입력하세요">
+            </div>
+            <div class="form-footer">
+              <div class="remember-me">
+                <input type="checkbox" id="remember">
+                <label for="remember">로그인 상태 유지</label>
+              </div>
+              <a href="#" class="forgot-password">비밀번호 찾기</a>
+            </div>
+            <button type="submit" class="submit-btn">로그인</button>
+          </form>
+        </div>
+        
+        <!-- 회원가입 폼 -->
+        <div class="form-content" id="signupForm">
+          <h2>회원가입</h2>
+          <form>
+            <div class="form-group">
+              <label for="signup-username">아이디</label>
+              <input type="text" id="signup-username" placeholder="사용할 아이디를 입력하세요">
+              <span class="form-info">영문, 숫자 5-20자</span>
+            </div>
+            <div class="form-group">
+              <label for="signup-email">이메일</label>
+              <input type="email" id="signup-email" placeholder="이메일을 입력하세요">
+            </div>
+            <div class="form-group">
+              <label for="signup-name">이름</label>
+              <input type="text" id="signup-name" placeholder="이름을 입력하세요">
+            </div>
+            <div class="form-group">
+              <label for="signup-password">비밀번호</label>
+              <input type="password" id="signup-password" placeholder="비밀번호를 입력하세요" oninput="checkPasswordStrength()">
+              <div class="password-strength">
+                <div class="strength-meter" id="strengthMeter"></div>
+              </div>
+              <span class="form-info">영문, 숫자, 특수문자 포함 8자 이상</span>
+            </div>
+            <div class="form-group">
+              <label for="signup-confirm">비밀번호 확인</label>
+              <input type="password" id="signup-confirm" placeholder="비밀번호를 다시 입력하세요">
+            </div>
+            <button type="submit" class="submit-btn">회원가입</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src = "/public/login/login.js"></script>
+</body>
+</html>

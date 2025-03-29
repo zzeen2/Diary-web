@@ -1,0 +1,502 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f8e1e7, #e1eaf8, #e1f8f4);
+  overflow: hidden;
+  position: relative;
+}
+
+/* 구름 요소들 */
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 100px;
+  opacity: 0.7;
+  filter: blur(2px);
+  box-shadow: 0 5px 15px rgba(47, 24, 24, 0.05);
+  animation: float 20s infinite ease-in-out;
+}
+
+.cloud:before, .cloud:after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.cloud-1 {
+  width: 200px;
+  height: 60px;
+  top: 10%;
+  left: 5%;
+  animation-duration: 32s;
+}
+
+.cloud-1:before {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  left: 25px;
+}
+
+.cloud-1:after {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  right: 25px;
+}
+
+.cloud-2 {
+  width: 150px;
+  height: 45px;
+  top: 30%;
+  right: 10%;
+  animation-duration: 28s;
+  animation-delay: 3s;
+}
+
+.cloud-2:before {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: 15px;
+}
+
+.cloud-2:after {
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  right: 15px;
+}
+
+.cloud-3 {
+  width: 180px;
+  height: 55px;
+  bottom: 15%;
+  left: 15%;
+  animation-duration: 34s;
+  animation-delay: 5s;
+}
+
+.cloud-3:before {
+  width: 70px;
+  height: 70px;
+  top: -35px;
+  left: 20px;
+}
+
+.cloud-3:after {
+  width: 90px;
+  height: 90px;
+  top: -45px;
+  right: 20px;
+}
+
+.cloud-4 {
+  width: 130px;
+  height: 40px;
+  bottom: 30%;
+  right: 25%;
+  opacity: 0.6;
+  animation-duration: 25s;
+  animation-delay: 7s;
+}
+
+.cloud-4:before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 15px;
+}
+
+.cloud-4:after {
+  width: 70px;
+  height: 70px;
+  top: -35px;
+  right: 15px;
+}
+
+.cloud-5 {
+  width: 120px;
+  height: 35px;
+  top: 60%;
+  left: 30%;
+  opacity: 0.5;
+  animation-duration: 40s;
+  animation-delay: 2s;
+}
+
+.cloud-5:before {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  left: 10px;
+}
+
+.cloud-5:after {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  right: 10px;
+}
+
+
+@keyframes float {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(40px) translateY(-10px);
+  }
+  50% {
+    transform: translateX(20px) translateY(10px);
+  }
+  75% {
+    transform: translateX(-20px) translateY(-5px);
+  }
+}
+
+/* 랜딩 페이지 */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 10;
+}
+
+.logo-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.main-logo {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.app-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #b881c2;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.app-desc {
+  font-size: 1.4rem;
+  color: #7a7a7a;
+  margin-bottom: 30px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.start-btn {
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #b881c2, #a06fb1);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(184, 129, 194, 0.4);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.start-btn:hover {
+  background: linear-gradient(135deg, #a06fb1, #8e5ba0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(184, 129, 194, 0.5);
+}
+
+.start-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(184, 129, 194, 0.3);
+}
+
+/* 모달 배경 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 모달 */
+.modal {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  width: 420px;
+  max-width: 90%;
+  margin-top: 60px; /* 로고가 모달 위에 살짝 겹치게 */
+  position: relative;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* 모달 로고 */
+.modal-logo {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.modal-logo img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+}
+
+.modal-logo.active {
+  opacity: 1;
+}
+
+/* 모달 헤더 */
+.modal-header {
+  display: flex;
+  width: 100%;
+  background-color: #f9f9f9;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.tab {
+  flex: 1;
+  padding: 18px 0;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+  color: #777;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  color: #b881c2;
+  background-color: white;
+  font-weight: 600;
+}
+
+/* 모달 본문 */
+.modal-body {
+  padding: 25px 30px;
+}
+
+.form-content {
+  display: none;
+}
+
+.form-content.active {
+  display: block;
+  animation: form-fade-in 0.3s ease forwards;
+}
+
+@keyframes form-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  color: #b881c2;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+input:focus {
+  border-color: #b881c2;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(184, 129, 194, 0.2);
+  background-color: white;
+}
+
+.form-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
+  width: auto;
+  margin-right: 6px;
+}
+
+.forgot-password {
+  color: #b881c2;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.forgot-password:hover {
+  color: #8e5ba0;
+  text-decoration: underline;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #b881c2, #a06fb1);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(184, 129, 194, 0.3);
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #a06fb1, #8e5ba0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(184, 129, 194, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(184, 129, 194, 0.3);
+}
+
+/* 회원가입 양식 추가 스타일 */
+.form-info {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+  display: block;
+}
+
+.password-strength {
+  height: 5px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.strength-meter {
+  height: 100%;
+  width: 0;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-weak {
+  width: 30%;
+  background-color: #ff6b6b;
+}
+
+.strength-medium {
+  width: 60%;
+  background-color: #ffd166;
+}
+
+.strength-strong {
+  width: 100%;
+  background-color: #06d6a0;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  padding: 5px;
+  width: auto;
+  box-shadow: none;
+  margin: 0;
+  z-index: 10;
+}
+
+.close-button:hover {
+  color: #555;
+}
+
