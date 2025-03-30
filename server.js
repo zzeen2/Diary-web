@@ -14,6 +14,11 @@ app.get("/", (req,res)=> {
     res.render("login/login")
 })
 
+// 메인 테스트 라우터
+app.get("/main", (req,res)=> {
+    res.render("main/main")
+})
+
 app.listen(3000, (req,res)=> {
     console.log("server on")
 })
