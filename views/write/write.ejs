@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>무드 구름 - 일기 작성</title>
+<link rel="stylesheet" href="/public/write/write.css">
+</head>
+<body>
+<div class="container">
+<!-- 네비게이션 바 -->
+<nav>
+    <div class="nav-logo">
+    <img src="/api/placeholder/40/40" alt="무드 구름 로고">
+    <h1>Mood Cloud</h1>
+    </div>
+    <div class="nav-links">
+    <a href="#">홈</a>
+    <a href="#" class="active">내 일기</a>
+    <a href="#">커뮤니티</a>
+    <a href="#">통계</a>
+    </div>
+    <div class="nav-profile">
+    <div class="notification-icon">
+        <span>🔔</span>
+        <div class="notification-badge">2</div>
+    </div>
+    <div class="profile-image"></div>
+    </div>
+</nav>
+
+<!-- 페이지 헤더 -->
+<div class="page-header">
+    <div class="page-title">
+    일기 작성
+    <span class="date-display">2025년 3월 30일 일요일</span>
+    </div>
+    <div class="header-actions">
+    <button class="btn btn-secondary">취소</button>
+    <button class="btn btn-primary">저장하기</button>
+    </div>
+</div>
+
+<!-- 메인 콘텐츠 영역 -->
+<div class="diary-content">
+    <!-- 왼쪽 부분 - 일기 작성 영역 -->
+    <div class="writing-area">
+    <input type="text" class="diary-title-input" placeholder="제목을 입력하세요">
+    
+    <div class="editor-toolbar">
+        <button class="toolbar-btn" title="굵게">B</button>
+        <button class="toolbar-btn" title="기울임">I</button>
+        <button class="toolbar-btn" title="밑줄">U</button>
+        <div class="separator"></div>
+        <button class="toolbar-btn" title="글머리 기호">•</button>
+        <button class="toolbar-btn" title="번호 매기기">1.</button>
+        <div class="separator"></div>
+        <button class="toolbar-btn" title="사진 추가">📷</button>
+        <button class="toolbar-btn" title="음성 메모">🎤</button>
+    </div>
+    
+    <textarea class="diary-content-input" placeholder="오늘 하루는 어땠나요? 느낀 감정이나 경험을 자유롭게 작성해보세요."></textarea>
+    
+    <div class="word-count">0 단어</div>
+    </div>
+    
+    <!-- 오른쪽 부분 - 위젯 영역 -->
+    <div class="diary-sidebar">
+    <!-- 감정 분석 위젯 -->
+    <div class="widget emotion-analysis">
+        <h3 class="widget-title">감정 분석</h3>
+        <div class="analysis-result">
+        <p class="suggested-emotion">AI가 분석한 감정은:</p>
+        <div class="emotion-icon-large calm">😌</div>
+        <div class="emotion-name-large">평온</div>
+        <button class="accept-btn">이 감정으로 저장</button>
+        </div>
+        <div class="other-emotions">
+        <div class="other-emotion-item">
+            <div class="other-emotion-icon happy">😊</div>
+            <span class="other-emotion-name">행복</span>
+        </div>
+        <div class="other-emotion-item">
+            <div class="other-emotion-icon sad">😢</div>
+            <span class="other-emotion-name">슬픔</span>
+        </div>
+        <div class="other-emotion-item">
+            <div class="other-emotion-icon angry">😠</div>
+            <span class="other-emotion-name">분노</span>
+        </div>
+        <div class="other-emotion-item">
+            <div class="other-emotion-icon anxious">😰</div>
+            <span class="other-emotion-name">불안</span>
+        </div>
+        </div>
+    </div>
+    
+    <!-- 날씨 위젯 -->
+    <div class="widget weather-widget">
+        <div class="weather-icon">☀️</div>
+        <div class="weather-info">
+        <div class="weather-temp">18°C</div>
+        <div class="weather-desc">맑음, 미세먼지 좋음</div>
+        <div class="weather-location">서울특별시 강남구</div>
+        </div>
+    </div>
+    
+    <!-- 설정 위젯 -->
+    <div class="widget diary-settings">
+        <h3 class="widget-title">일기 설정</h3>
+        
+        <div class="setting-group">
+        <label class="setting-label">공개 설정</label>
+        <div class="visibility-toggle">
+            <div class="visibility-option active">비공개</div>
+            <div class="visibility-option">공개</div>
+        </div>
+        </div>
+        
+        <div class="setting-group">
+        <label class="setting-label">태그 추가</label>
+        <input type="text" class="tags-input" placeholder="태그를 입력하세요">
+        <div class="tags-suggestions">
+            <span class="tag-suggestion">일상</span>
+            <span class="tag-suggestion">음악</span>
+            <span class="tag-suggestion">영화</span>
+            <span class="tag-suggestion">여행</span>
+            <span class="tag-suggestion">음식</span>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<script>
+// 단어 수 계산
+const contentInput = document.querySelector('.diary-content-input');
+const wordCount = document.querySelector('.word-count');
+
+contentInput.addEventListener('input', function() {
+    const text = this.value.trim();
+    const words = text ? text.split(/\s+/).length : 0;
+    wordCount.textContent = words + ' 단어';
+});
+
+// 공개 설정 토글
+const visibilityOptions = document.querySelectorAll('.visibility-option');
+
+visibilityOptions.forEach(option => {
+    option.addEventListener('click', function() {
+    visibilityOptions.forEach(opt => opt.classList.remove('active'));
+    this.classList.add('active');
+    });
+});
+</script>
+</body>
+</html>
