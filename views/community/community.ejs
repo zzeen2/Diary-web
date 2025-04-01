@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>무드 구름 - 커뮤니티</title>
+
+</head>
+<body>
+<div class="container">
+<!-- 네비게이션 바 -->
+<nav>
+    <div class="nav-logo">
+    <img src="/api/placeholder/40/40" alt="무드 구름 로고">
+    <h1>Mood Cloud</h1>
+    </div>
+    <div class="nav-links">
+    <a href="/main">홈</a>
+    <a href="/diary/list">내 일기</a>
+    <a href="/community" class="active">커뮤니티</a>
+    <a href="/stats">통계</a>
+    </div>
+    <div class="nav-profile">
+    <div class="notification-icon">
+        <span>🔔</span>
+        <div class="notification-badge">2</div>
+    </div>
+    <div class="profile-image"></div>
+    </div>
+</nav>
+
+<!-- 페이지 헤더 -->
+<div class="page-header">
+    <h1 class="page-title">감정 커뮤니티</h1>
+    <div class="header-actions">
+    <button class="btn btn-primary" id="shareDiaryBtn">내 일기 공유하기</button>
+    </div>
+</div>
+
+<!-- 필터 및 검색 컨트롤 -->
+<div class="controls">
+    <div class="left-controls">
+    <div class="filter-group">
+        <span class="filter-label">감정</span>
+        <div class="select-wrapper">
+        <select id="emotion-filter">
+            <option value="all">전체</option>
+            <option value="happy">행복</option>
+            <option value="sad">슬픔</option>
+            <option value="angry">분노</option>
+            <option value="calm">평온</option>
+            <option value="anxious">불안</option>
+            <option value="tired">피곤</option>
+            <option value="excited">신남</option>
+            <option value="confused">혼란</option>
+        </select>
+        </div>
+    </div>
+    
+    <div class="filter-group">
+        <span class="filter-label">정렬</span>
+        <div class="select-wrapper">
+        <select id="sort-filter">
+            <option value="recent">최신순</option>
+            <option value="popular">인기순</option>
+            <option value="comments">댓글순</option>
+        </select>
+        </div>
+    </div>
+    
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+    </div>
+    </div>
+    
+    <div class="right-controls">
+    <div class="view-toggle">
+        <div class="view-option active" data-view="grid">📱</div>
+        <div class="view-option" data-view="list">📃</div>
+    </div>
+    </div>
+</div>
+
+<!-- 커뮤니티 메인 콘텐츠 -->
+<div class="community-content">
+    <!-- 왼쪽 - 일기 피드 -->
+    <div class="diary-feed">
+    <!-- 일기 카드 1 -->
+    <div class="community-card">
+        <div class="card-header">
+        <div class="user-info">
+            <div class="user-avatar"></div>
+            <div class="user-details">
+            <div class="user-name">지민</div>
+            <div class="post-date">3시간 전</div>
+            </div>
+        </div>
+        <div class="card-emotion">
+            <div class="emotion-icon happy">😊</div>
+            <span class="emotion-name">행복</span>
+        </div>
+        </div>
+        <div class="card-body">
+        <h3 class="card-title">첫 번째 마라톤 완주</h3>
+        <p class="card-content">오늘 드디어 첫 하프 마라톤을 완주했다. 6개월 동안 매일 아침 꾸준히 연습한 결과가 드디어 빛을 발했다. 달리는 내내 힘들었지만, 결승선을 통과한 순간의 성취감은 정말 말로 표현할 수 없을 정도였다. 내 자신이 너무 자랑스럽다!</p>
+        <div class="card-actions">
+            <button class="like-btn">❤️ 24</button>
+            <button class="comment-btn">💬 8</button>
+            <button class="share-btn">🔄</button>
+        </div>
+        </div>
+        <!-- 댓글 섹션 -->
+        <div class="comments-section">
+        <div class="comment">
+            <div class="comment-avatar"></div>
+            <div class="comment-content">
+            <div class="comment-header">
+                <span class="comment-name">수진</span>
+                <span class="comment-time">2시간 전</span>
+            </div>
+            <p class="comment-text">축하해요! 대단한 성취에요.</p>
+            <div class="comment-actions">
+                <button class="comment-like">좋아요</button>
+                <button class="comment-reply">답글</button>
+            </div>
+            </div>
+        </div>
+        <div class="comment">
+            <div class="comment-avatar"></div>
+            <div class="comment-content">
+            <div class="comment-header">
+                <span class="comment-name">현우</span>
+                <span class="comment-time">1시간 전</span>
+            </div>
+            <p class="comment-text">저도 마라톤 도전 중인데 정말 멋져요! 어떻게 준비하셨는지 더 자세히 알 수 있을까요?</p>
+            <div class="comment-actions">
+                <button class="comment-like">좋아요</button>
+                <button class="comment-reply">답글</button>
+            </div>
+            </div>
+        </div>
+        <div class="add-comment">
+            <div class="comment-avatar"></div>
+            <input type="text" class="comment-input" placeholder="댓글을 입력하세요...">
+            <button class="send-comment">→</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 일기 카드 2 -->
+    <div class="community-card">
+        <div class="card-header">
+        <div class="user-info">
+            <div class="user-avatar"></div>
+            <div class="user-details">
+            <div class="user-name">현지</div>
+            <div class="post-date">어제</div>
+            </div>
+        </div>
+        <div class="card-emotion">
+            <div class="emotion-icon calm">😌</div>
+            <span class="emotion-name">평온</span>
+        </div>
+        </div>
+        <div class="card-body">
+        <h3 class="card-title">비 오는 날의 책과 차</h3>
+        <p class="card-content">오늘은 비가 내리는 소리를 배경으로 오랫동안 읽고 싶었던 소설을 읽었다. 창가에 앉아 따뜻한 차 한 잔과 함께하는 시간이 이렇게 행복할 수 있다니. 바쁜 일상에서 잠시 벗어나 나만의 시간을 가질 수 있어서 너무 좋았다.</p>
+        <div class="card-actions">
+            <button class="like-btn">❤️ 16</button>
+            <button class="comment-btn">💬 4</button>
+            <button class="share-btn">🔄</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 일기 카드 3 -->
+    <div class="community-card">
+        <div class="card-header">
+        <div class="user-info">
+            <div class="user-avatar"></div>
+            <div class="user-details">
+            <div class="user-name">태영</div>
+            <div class="post-date">2일 전</div>
+            </div>
+        </div>
+        <div class="card-emotion">
+            <div class="emotion-icon excited">🤩</div>
+            <span class="emotion-name">신남</span>
+        </div>
+        </div>
+        <div class="card-body">
+        <h3 class="card-title">드디어 입사 합격!</h3>
+        <p class="card-content">여러 번의 면접과 준비 끝에 드디어 원하던 회사에 합격했다. 그동안의 노력이 헛되지 않았다는 생각에 너무 기쁘다. 새로운 시작이 설레면서도 긴장되지만, 최선을 다해 성장하는 모습을 보여주고 싶다. 꿈꾸던 일을 할 수 있게 되어 정말 행복하다!</p>
+        <div class="card-actions">
+            <button class="like-btn">❤️ 42</button>
+            <button class="comment-btn">💬 12</button>
+            <button class="share-btn">🔄</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 일기 카드 4 -->
+    <div class="community-card">
+        <div class="card-header">
+        <div class="user-info">
+            <div class="user-avatar"></div>
+            <div class="user-details">
+            <div class="user-name">민준</div>
+            <div class="post-date">3일 전</div>
+            </div>
+        </div>
+        <div class="card-emotion">
+            <div class="emotion-icon sad">😢</div>
+            <span class="emotion-name">슬픔</span>
+        </div>
+        </div>
+        <div class="card-body">
+        <h3 class="card-title">오래된 추억을 돌아보며</h3>
+        <p class="card-content">오랜만에 대학 앨범을 꺼내보았다. 그 시절의 친구들, 웃음, 고민들이 생생하게 떠올랐다. 지금은 연락이 끊긴 친구들도 많아 아쉬움이 크다. 시간이 지나고 각자의 길을 가는 것이 당연하지만, 그때의 순수했던 우정이 그립다. 가끔은 과거를 돌아보는 시간도 필요한 것 같다.</p>
+        <div class="card-actions">
+            <button class="like-btn">❤️ 19</button>
+            <button class="comment-btn">💬 7</button>
+            <button class="share-btn">🔄</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 오른쪽 - 사이드바 -->
+    <div class="community-sidebar">
+    <!-- 인기 태그 위젯 -->
+    <div class="widget popular-tags">
+        <h3 class="widget-title">인기 태그</h3>
+        <div class="tags-list">
+        <div class="tag-item">#일상</div>
+        <div class="tag-item">#감사</div>
+        <div class="tag-item">#여행</div>
+        <div class="tag-item">#목표달성</div>
+        <div class="tag-item">#성장</div>
+        <div class="tag-item">#음식</div>
+        <div class="tag-item">#운동</div>
+        <div class="tag-item">#책</div>
+        <div class="tag-item">#영화</div>
+        <div class="tag-item">#음악</div>
+        </div>
+    </div>
+    
+    <!-- 추천 사용자 위젯 -->
+    <div class="widget suggested-users">
+        <h3 class="widget-title">추천 사용자</h3>
+        <div class="users-list">
+        <div class="user-item">
+            <div class="user-avatar"></div>
+            <div class="user-info">
+            <div class="user-name">민수</div>
+            <div class="user-bio">여행 & 사진 애호가</div>
+            </div>
+            <button class="follow-btn">팔로우</button>
+        </div>
+        <div class="user-item">
+            <div class="user-avatar"></div>
+            <div class="user-info">
+            <div class="user-name">지영</div>
+            <div class="user-bio">책읽는 사람</div>
+            </div>
+            <button class="follow-btn">팔로우</button>
+        </div>
+        <div class="user-item">
+            <div class="user-avatar"></div>
+            <div class="user-info">
+            <div class="user-name">준호</div>
+            <div class="user-bio">일상 기록가</div>
+            </div>
+            <button class="follow-btn">팔로우</button>
+        </div>
+        <div class="user-item">
+            <div class="user-avatar"></div>
+            <div class="user-info">
+            <div class="user-name">소미</div>
+            <div class="user-bio">감정 공유자</div>
+            </div>
+            <button class="follow-btn">팔로우</button>
+        </div>
+        </div>
+    </div>
+    
+    <!-- 주간 감정 트렌드 위젯 -->
+    <div class="widget emotion-trends">
+        <h3 class="widget-title">주간 감정 트렌드</h3>
+        <div class="trend-chart">
+        <div class="trend-bar-container">
+            <div class="trend-label">행복</div>
+            <div class="trend-bar">
+            <div class="trend-value" style="width: 75%;"></div>
+            </div>
+            <div class="trend-percentage">75%</div>
+        </div>
+        <div class="trend-bar-container">
+            <div class="trend-label">평온</div>
+            <div class="trend-bar">
+            <div class="trend-value" style="width: 65%;"></div>
+            </div>
+            <div class="trend-percentage">65%</div>
+        </div>
+        <div class="trend-bar-container">
+            <div class="trend-label">신남</div>
+            <div class="trend-bar">
+            <div class="trend-value" style="width: 55%;"></div>
+            </div>
+            <div class="trend-percentage">55%</div>
+        </div>
+        <div class="trend-bar-container">
+            <div class="trend-label">불안</div>
+            <div class="trend-bar">
+            <div class="trend-value" style="width: 30%;"></div>
+            </div>
+            <div class="trend-percentage">30%</div>
+        </div>
+        <div class="trend-bar-container">
+            <div class="trend-label">슬픔</div>
+            <div class="trend-bar">
+            <div class="trend-value" style="width: 25%;"></div>
+            </div>
+            <div class="trend-percentage">25%</div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- 활동 배지 위젯 -->
+    <div class="widget activity-badges">
+        <h3 class="widget-title">감정 배지</h3>
+        <div class="badges-container">
+        <div class="badge-item">
+            <div class="badge-icon">🌟</div>
+            <div class="badge-info">
+            <div class="badge-name">감정 표현가</div>
+            <div class="badge-desc">10개 이상의 감정 기록</div>
+            </div>
+        </div>
+        <div class="badge-item">
+            <div class="badge-icon">📝</div>
+            <div class="badge-info">
+            <div class="badge-name">열정적인 작가</div>
+            <div class="badge-desc">20개 이상의 일기 작성</div>
+            </div>
+        </div>
+        <div class="badge-item">
+            <div class="badge-icon">💬</div>
+            <div class="badge-info">
+            <div class="badge-name">공감 전문가</div>
+            <div class="badge-desc">30개 이상의 댓글 작성</div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- 페이지네이션 -->
+<div class="pagination">
+    <button class="page-nav disabled">◀</button>
+    <button class="page-item active">1</button>
+    <button class="page-item">2</button>
+    <button class="page-item">3</button>
+    <button class="page-nav">▶</button>
+</div>
+</div>
+
+<!-- 내 일기 공유 모달 -->
+<div class="modal-overlay" id="shareModal" style="display:none;">
+<div class="share-modal">
+    <div class="modal-header">
+    <h2>내 일기 공유하기</h2>
+    <button class="close-modal">×</button>
+    </div>
+    <div class="modal-body">
+    <div class="diary-select">
+        <label for="diary-dropdown">공유할 일기 선택</label>
+        <select id="diary-dropdown">
+        <option value="" disabled selected>일기를 선택하세요</option>
+        <option value="1">오늘 달린 10km (2025.03.30)</option>
+        <option value="2">새로운 취미 시작 (2025.03.28)</option>
+        <option value="3">좋은 책을 읽고 (2025.03.26)</option>
+        </select>
+    </div>
+    
+    <div class="privacy-settings">
+        <h3>공개 설정</h3>
+        <div class="settings-options">
+        <label class="setting-option">
+            <input type="radio" name="privacy" value="public" checked>
+            <span class="option-text">모두에게 공개</span>
+        </label>
+        <label class="setting-option">
+            <input type="radio" name="privacy" value="followers">
+            <span class="option-text">팔로워에게만 공개</span>
+        </label>
+        </div>
+    </div>
+    
+    <div class="tags-section">
+        <h3>태그 추가</h3>
+        <div class="tags-input-container">
+        <input type="text" id="tags-input" placeholder="태그 입력 후 엔터 (예: 일상, 취미)">
+        <div class="tags-container"></div>
+        </div>
+        <div class="suggested-tags">
+        <span class="suggested-tag">#일상</span>
+        <span class="suggested-tag">#감정</span>
+        <span class="suggested-tag">#취미</span>
+        <span class="suggested-tag">#성장</span>
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="cancel-btn">취소</button>
+    <button class="share-diary-btn">공유하기</button>
+    </div>
+</div>
+</div>
+
+<script>
+// 모달 기능
+document.getElementById('shareDiaryBtn').addEventListener('click', function() {
+    document.getElementById('shareModal').style.display = 'flex';
+});
+
+document.querySelector('.close-modal').addEventListener('click', function() {
+    document.getElementById('shareModal').style.display = 'none';
+});
+
+document.querySelector('.cancel-btn').addEventListener('click', function() {
+    document.getElementById('shareModal').style.display = 'none';
+});
+
+// 뷰 전환 기능
+const viewOptions = document.querySelectorAll('.view-option');
+
+viewOptions.forEach(option => {
+    option.addEventListener('click', function() {
+    viewOptions.forEach(opt => opt.classList.remove('active'));
+    this.classList.add('active');
+    });
+});
+
+// 활성화된 배지에 스타일 적용
+document.addEventListener('DOMContentLoaded', function() {
+    const badges = document.querySelectorAll('.badge-item');
+    badges.forEach(badge => {
+    badge.style.display = 'flex';
+    badge.style.gap = '10px';
+    badge.style.alignItems = 'center';
+    badge.style.margin = '10px 0';
+    });
+    
+    const badgeIcons = document.querySelectorAll('.badge-icon');
+    badgeIcons.forEach(icon => {
+    icon.style.width = '40px';
+    icon.style.height = '40px';
+    icon.style.borderRadius = '50%';
+    icon.style.background = '#f5f5f5';
+    icon.style.display = 'flex';
+    icon.style.justifyContent = 'center';
+    icon.style.alignItems = 'center';
+    icon.style.fontSize = '1.2rem';
+    });
+    
+    const badgeInfos = document.querySelectorAll('.badge-info');
+    badgeInfos.forEach(info => {
+    info.style.flex = '1';
+    });
+    
+    const badgeNames = document.querySelectorAll('.badge-name');
+    badgeNames.forEach(name => {
+    name.style.fontSize = '0.9rem';
+    name.style.fontWeight = '600';
+    name.style.color = '#555';
+    });
+    
+    const badgeDescs = document.querySelectorAll('.badge-desc');
+    badgeDescs.forEach(desc => {
+    desc.style.fontSize = '0.8rem';
+    desc.style.color = '#999';
+    });
+});
+</script>

@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>무드 구름 - 내 정보 관리</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f8e1e7, #e1eaf8, #e1f8f4);
+    min-height: 100vh;
+    color: #555;
+    padding-bottom: 50px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 네비게이션 바 */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-logo h1 {
+    font-size: 1.5rem;
+    color: #b881c2;
+    font-weight: 600;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #777;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #b881c2;
+}
+
+.nav-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff6b6b;
+    color: white;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+}
+
+/* 페이지 헤더 */
+.page-header {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.page-description {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* 설정 레이아웃 */
+.settings-layout {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+}
+
+/* 설정 탭 사이드바 */
+.settings-sidebar {
+    width: 250px;
+    background: #f9f9f9;
+    padding: 25px 0;
+}
+
+.profile-summary {
+    padding: 0 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.profile-summary-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #ddd;
+    margin: 0 auto 15px;
+    position: relative;
+}
+
+.edit-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #b881c2;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid white;
+    font-size: 0.8rem;
+}
+
+.profile-summary-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.profile-summary-username {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.settings-nav {
+    list-style: none;
+}
+
+.settings-nav-item {
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.settings-nav-item:hover {
+    background: #f0f0f0;
+    color: #b881c2;
+}
+
+.settings-nav-item.active {
+    background: #f0f0f0;
+    color: #b881c2;
+    border-left: 3px solid #b881c2;
+}
+
+.nav-icon {
+    width: 20px;
+    text-align: center;
+}
+
+/* 설정 콘텐츠 */
+.settings-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.settings-section {
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+    animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+    0% {
+    opacity: 0;
+    transform: translateY(10px);
+    }
+    100% {
+    opacity: 1;
+    transform: translateY(0);
+    }
+}
+
+.settings-section-title {
+    font-size: 1.3rem;
+    color: #444;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* 프로필 편집 섹션 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #b881c2;
+    box-shadow: 0 0 0 3px rgba(184, 129, 194, 0.1);
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 100px;
+    transition: all 0.3s;
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: #b881c2;
+    box-shadow: 0 0 0 3px rgba(184, 129, 194, 0.1);
+}
+
+.form-hint {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+}
+
+.btn-primary {
+    background: #b881c2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #a06fb1;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+/* 알림 설정 섹션 */
+.toggle-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.toggle-group:last-child {
+    border-bottom: none;
+}
+
+.toggle-label {
+    display: flex;
+    flex-direction: column;
+}
+
+.toggle-title {
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 3px;
+}
+
+.toggle-description {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #b881c2;
+}
+
+input:focus + .toggle-slider {
+    box-shadow: 0 0 1px #b881c2;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+/* 팔로워/팔로잉 섹션 */
+.follow-tabs {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.follow-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #777;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.follow-tab.active {
+    color: #b881c2;
+}
+
+.follow-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #b881c2;
+}
+
+.follow-tab-count {
+    background: #f0f0f0;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+.follow-content {
+    display: none;
+}
+
+.follow-content.active {
+    display: block;
+    animation: fade-in 0.3s ease;
+}
+
+.follow-search {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.follow-search-input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.follow-search-input:focus {
+    outline: none;
+    border-color: #b881c2;
+    box-shadow: 0 0 0 3px rgba(184, 129, 194, 0.1);
+}
+
+.follow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.follow-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f9f9f9;
+    transition: all 0.3s;
+}
+
+.follow-item:hover {
+    background: #f0f0f0;
+}
+
+.follow-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.follow-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #ddd;
+}
+
+.follow-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.follow-name {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 3px;
+}
+
+.follow-username {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.follow-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* 계정 관리 섹션 */
+.danger-zone {
+    margin-top: 40px;
+    padding: 20px;
+    border: 1px solid #ffcccc;
+    border-radius: 10px;
+    background: #fff8f8;
+}
+
+.danger-zone-title {
+    color: #e74c3c;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.danger-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #ffe0e0;
+}
+
+.danger-item:last-child {
+    border-bottom: none;
+}
+
+.danger-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.danger-title {
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 3px;
+}
+
+.danger-description {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.btn-danger {
+    background: #fff;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.btn-danger:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+/* 모달 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-20px);
+    transition: all 0.3s;
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    color: #444;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 팔로워/팔로잉 관리 모달 */
+.user-action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.user-action {
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.user-action:hover {
+    background: #f5f5f5;
+}
+
+.user-action.danger {
+    color: #e74c3c;
+}
+
+.user-action.danger:hover {
+    background: #ffefef;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<!-- 네비게이션 바 -->
+<nav>
+    <div class="nav-logo">
+    <img src="/api/placeholder/40/40" alt="무드 구름 로고">
+    <h1>Mood Cloud</h1>
+    </div>
+    <div class="nav-links">
+    <a href="#">홈</a>
+    <a href="#">내 일기</a>
+    <a href="#">커뮤니티</a>
+    <a href="#">통계</a>
+    </div>
+    <div class="nav-profile">
+    <div class="notification-icon">
+        <span>🔔</span>
+        <div class="notification-badge">2</div>
+    </div>
+    <div class="profile-image"></div>
+    </div>
+</nav>
+
+<!-- 페이지 헤더 -->
+<div class="page-header">
+    <h1 class="page-title">내 정보 관리</h1>
+    <p class="page-description">프로필 정보와 계정 설정을 관리하세요</p>
+</div>
+
+<!-- 설정 레이아웃 -->
+<div class="settings-layout">
+    <!-- 설정 탭 사이드바 -->
+    <div class="settings-sidebar">
+    <div class="profile-summary">
+        <div class="profile-summary-image">
+        <div class="edit-avatar">✏️</div>
+        </div>
+        <div class="profile-summary-name">지은</div>
+        <div class="profile-summary-username">@jieun</div>
+    </div>
+    
+    <ul class="settings-nav">
+        <li class="settings-nav-item active" data-section="profile">
+        <span class="nav-icon">👤</span> 프로필 정보
+        </li>
+        <li class="settings-nav-item" data-section="security">
+        <span class="nav-icon">🔒</span> 계정 보안
+        </li>
+        <li class="settings-nav-item" data-section="notifications">
+        <span class="nav-icon">🔔</span> 알림 설정
+        </li>
+        <li class="settings-nav-item" data-section="privacy">
+        <span class="nav-icon">🛡️</span> 개인정보 보호
+        </li>
+        <li class="settings-nav-item" data-section="follows">
+        <span class="nav-icon">👥</span> 팔로워/팔로잉
+        </li>
+        <li class="settings-nav-item" data-section="account">
+        <span class="nav-icon">⚙️</span> 계정 관리
+        </li>
+    </ul>
+    </div>
+    
+    <!-- 설정 콘텐츠 -->
+    <div class="settings-content">
+    <!-- 프로필 정보 섹션 -->
+    <div class="settings-section active" id="profile-section">
+        <h2 class="settings-section-title">프로필 정보</h2>
+        
+        <div class="form-group">
+        <label class="form-label">프로필 이미지</label>
+        <div style="width: 100px; height: 100px; background: #ddd; border-radius: 50%; margin-bottom: 10px; position: relative;">
+            <div class="edit-avatar">✏️</div>
+        </div>
+        <span class="form-hint">프로필 이미지는 JPG, PNG, GIF 형식으로 최대 2MB까지 업로드 가능합니다.</span>
+        </div>
+        
+        <div class="form-group">
+        <label class="form-label" for="displayName">이름</label>
+        <input type="text" id="displayName" class="form-input" value="지은">
+        <span class="form-hint">다른 사용자에게 표시되는 이름입니다.</span>
+        </div>
+        
+        <div class="form-group">
+        <label class="form-label" for="username">사용자 이름</label>
+        <input type="text" id="username" class="form-input" value="jieun">
+        <span class="form-hint">영문, 숫자, 밑줄(_)만 사용 가능합니다.</span>
+        </div>
+        
+        <div class="form-group">
+        <label class="form-label" for="bio">자기소개</label>
+        <textarea id="bio" class="form-textarea">일상의 소소한 행복을 기록하는 글쓰기를 좋아합니다. 음악과 카페 탐방이 취미입니다.</textarea>
+        <span class="form-hint">최대 150자까지 입력 가능합니다.</span>
+        </div>
+        
+        <div class="form-group">
+        <label class="form-label" for="email">이메일</label>
+        <input type="email" id="email" class="form-input" value="jieun@example.com">
+        <span class="form-hint">이메일 변경 시 인증이 필요합니다.</span>
+        </div>
+        
+        <div class="form-actions">
+        <button class="btn btn-secondary">취소</button>
+        <button class="btn btn-primary">저장하기</button>
+        </div>
+    </div>
+    
+    <!-- 계정 보안 섹션 -->
+    <div class="settings-section" id="security-section">
+        <h2 class="settings-section-title">계정 보안</h2>
+        
+        <div class="form-group">
+        <label class="form-label" for="currentPassword">현재 비밀번호</label>
+        <input type="password" id="currentPassword" class="form-input" placeholder="현재 비밀번호를 입력하세요">
+        </div>
+        
+        <div class="form-group">
+        <label class="form-label" for="newPassword">새 비밀번호</label>
+        <input type="password" id="newPassword" class="form-input" placeholder="새 비밀번호를 입력하세요">
+        <span class="form-hint">비밀번호는 8자 이상이어야 하며, 영문, 숫자, 특수문자를 포함해야 합니다.</span>
+        </div>
+        
+        <div class="form-group">
+        <label class="form-label" for="confirmPassword">비밀번호 확인</label>
+        <input type="password" id="confirmPassword" class="form-input" placeholder="새 비밀번호를 다시 입력하세요">
+        </div>
+        
+        <div class="form-actions">
+        <button class="btn btn-secondary">취소</button>
+        <button class="btn btn-primary">비밀번호 변경</button>
+        </div>
+    </div>
+    
+    <!-- 알림 설정 섹션 -->
+    <div class="settings-section" id="notifications-section">
+        <h2 class="settings-section-title">알림 설정</h2>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">댓글 알림</span>
+            <span class="toggle-description">내 일기에 새 댓글이 달렸을 때 알림을 받습니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">좋아요 알림</span>
+            <span class="toggle-description">내 일기에 좋아요가 추가되었을 때 알림을 받습니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">팔로우 알림</span>
+            <span class="toggle-description">새로운 팔로워가 생겼을 때 알림을 받습니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">일기 작성 리마인더</span>
+            <span class="toggle-description">매일 일정 시간에 일기 작성 알림을 받습니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox">
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">이메일 알림</span>
+            <span class="toggle-description">주요 알림을 이메일로도 받습니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox">
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+    </div>
+    
+    <!-- 개인정보 보호 섹션 -->
+    <div class="settings-section" id="privacy-section">
+        <h2 class="settings-section-title">개인정보 보호</h2>
+        
+        <div class="form-group">
+        <label class="form-label">기본 일기 공개 설정</label>
+        <div style="display: flex; gap: 10px;">
+            <label style="display: flex; align-items: center; gap: 5px;">
+            <input type="radio" name="default-privacy" checked>
+            <span>비공개</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 5px;">
+            <input type="radio" name="default-privacy">
+            <span>공개</span>
+            </label>
+        </div>
+        <span class="form-hint">새 일기 작성 시 기본적으로 적용될 공개 설정입니다.</span>
+        </div>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">프로필 공개</span>
+            <span class="toggle-description">프로필 정보를 모든 사용자에게 공개합니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+        
+        <div class="toggle-group">
+            <div class="toggle-label">
+                <span class="toggle-title">팔로워 승인</span>
+                <span class="toggle-description">새 팔로워를 수동으로 승인합니다.</span>
+        <div class="toggle-label">
+            <span class="toggle-title">팔로워 승인</span>
+            <span class="toggle-description">새 팔로워를 수동으로 승인합니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox">
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">활동 상태 표시</span>
+            <span class="toggle-description">다른 사용자에게 나의 활동 상태(온라인/오프라인)를 표시합니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+        
+        <div class="toggle-group">
+        <div class="toggle-label">
+            <span class="toggle-title">검색 노출</span>
+            <span class="toggle-description">다른 사용자가 나를 검색할 수 있습니다.</span>
+        </div>
+        <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="toggle-slider"></span>
+        </label>
+        </div>
+    </div>
+    
+    <!-- 팔로워/팔로잉 섹션 -->
+    <div class="settings-section" id="follows-section">
+        <h2 class="settings-section-title">팔로워/팔로잉</h2>
+        
+        <div class="follow-tabs">
+        <div class="follow-tab active" onclick="switchFollowTab('followers')">
+            팔로워 <span class="follow-tab-count">128</span>
+        </div>
+        <div class="follow-tab" onclick="switchFollowTab('following')">
+            팔로잉 <span class="follow-tab-count">85</span>
+        </div>
+        <div class="follow-tab" onclick="switchFollowTab('blocked')">
+            차단 <span class="follow-tab-count">2</span>
+        </div>
+        </div>
+        
+        <!-- 팔로워 탭 -->
+        <div class="follow-content active" id="followers-content">
+        <div class="follow-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="follow-search-input" placeholder="팔로워 검색">
+        </div>
+        
+        <div class="follow-list">
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">미나</div>
+                <div class="follow-username">@mina</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary" onclick="openUserActionModal('mina')">관리</button>
+            </div>
+            </div>
+            
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">준호</div>
+                <div class="follow-username">@junho</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary" onclick="openUserActionModal('junho')">관리</button>
+            </div>
+            </div>
+            
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">수지</div>
+                <div class="follow-username">@suzy</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary" onclick="openUserActionModal('suzy')">관리</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        
+        <!-- 팔로잉 탭 -->
+        <div class="follow-content" id="following-content">
+        <div class="follow-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="follow-search-input" placeholder="팔로잉 검색">
+        </div>
+        
+        <div class="follow-list">
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">윤아</div>
+                <div class="follow-username">@yoona</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary">팔로잉</button>
+            </div>
+            </div>
+            
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">태민</div>
+                <div class="follow-username">@taemin</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary">팔로잉</button>
+            </div>
+            </div>
+            
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">예은</div>
+                <div class="follow-username">@yeeun</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary">팔로잉</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        
+        <!-- 차단 탭 -->
+        <div class="follow-content" id="blocked-content">
+        <div class="follow-list">
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">차단된 사용자</div>
+                <div class="follow-username">@blocked_user1</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary">차단 해제</button>
+            </div>
+            </div>
+            
+            <div class="follow-item">
+            <div class="follow-user">
+                <div class="follow-avatar"></div>
+                <div class="follow-info">
+                <div class="follow-name">차단된 사용자</div>
+                <div class="follow-username">@blocked_user2</div>
+                </div>
+            </div>
+            <div class="follow-actions">
+                <button class="btn btn-secondary">차단 해제</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- 계정 관리 섹션 -->
+    <div class="settings-section" id="account-section">
+        <h2 class="settings-section-title">계정 관리</h2>
+        
+        <div class="form-group">
+        <label class="form-label">데이터 내보내기</label>
+        <p style="margin-bottom: 10px;">내 계정의 모든 데이터를 JSON 또는 CSV 형식으로 내보낼 수 있습니다.</p>
+        <button class="btn btn-secondary">데이터 내보내기</button>
+        </div>
+        
+        <div class="danger-zone">
+        <h3 class="danger-zone-title">위험 영역</h3>
+        
+        <div class="danger-item">
+            <div class="danger-info">
+            <div class="danger-title">계정 비활성화</div>
+            <div class="danger-description">계정을 일시적으로 비활성화합니다. 30일 이내에 다시 로그인하면 계정을 복구할 수 있습니다.</div>
+            </div>
+            <button class="btn btn-danger">비활성화</button>
+        </div>
+        
+        <div class="danger-item">
+            <div class="danger-info">
+            <div class="danger-title">계정 삭제</div>
+            <div class="danger-description">계정과 모든 데이터를 영구적으로 삭제합니다. 이 작업은 취소할 수 없습니다.</div>
+            </div>
+            <button class="btn btn-danger">삭제</button>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<!-- 사용자 관리 모달 -->
+<div class="modal-overlay" id="userActionModal">
+<div class="modal">
+    <div class="modal-header">
+    <h3 class="modal-title">사용자 관리</h3>
+    <button class="modal-close" onclick="closeUserActionModal()">×</button>
+    </div>
+    <div class="modal-body">
+    <div class="follow-user" style="margin-bottom: 20px;">
+        <div class="follow-avatar"></div>
+        <div class="follow-info">
+        <div class="follow-name">미나</div>
+        <div class="follow-username">@mina</div>
+        </div>
+    </div>
+    
+    <div class="user-action-list">
+        <div class="user-action">
+        <span>👤</span> 프로필 보기
+        </div>
+        <div class="user-action">
+        <span>📝</span> 메시지 보내기
+        </div>
+        <div class="user-action">
+        <span>🔕</span> 알림 끄기
+        </div>
+        <div class="user-action danger">
+        <span>🚫</span> 팔로워 삭제
+        </div>
+        <div class="user-action danger">
+        <span>⛔</span> 차단하기
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-secondary" onclick="closeUserActionModal()">취소</button>
+    </div>
+</div>
+</div>
+
+<script>
+// 설정 탭 전환
+const settingsNavItems = document.querySelectorAll('.settings-nav-item');
+const settingsSections = document.querySelectorAll('.settings-section');
+
+settingsNavItems.forEach(item => {
+    item.addEventListener('click', function() {
+    const sectionId = this.getAttribute('data-section');
+    
+    // 탭 활성화
+    settingsNavItems.forEach(navItem => navItem.classList.remove('active'));
+    this.classList.add('active');
+    
+    // 섹션 활성화
+    settingsSections.forEach(section => section.classList.remove('active'));
+    document.getElementById(`${sectionId}-section`).classList.add('active');
+    });
+});
+
+// 팔로우 탭 전환
+function switchFollowTab(tab) {
+    // 탭 활성화
+    document.querySelectorAll('.follow-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.follow-tab[onclick="switchFollowTab('${tab}')"]`).classList.add('active');
+    
+    // 콘텐츠 활성화
+    document.querySelectorAll('.follow-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(`${tab}-content`).classList.add('active');
+}
+
+// 사용자 관리 모달
+const userActionModal = document.getElementById('userActionModal');
+
+function openUserActionModal(username) {
+    userActionModal.classList.add('active');
+}
+
+function closeUserActionModal() {
+    userActionModal.classList.remove('active');
+}
+
+// 모달 외부 클릭 시 닫기
+userActionModal.addEventListener('click', function(e) {
+    if (e.target === userActionModal) {
+    closeUserActionModal();
+    }
+});
+</script>
+</body>
+</html>
