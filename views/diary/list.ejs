@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>무드 구름 - 내 일기 목록</title>
+
+</head>
+<body>
+<div class="container">
+<!-- 네비게이션 바 -->
+<nav>
+    <div class="nav-logo">
+    <img src="/api/placeholder/40/40" alt="무드 구름 로고">
+    <h1>Mood Cloud</h1>
+    </div>
+    <div class="nav-links">
+    <a href="#">홈</a>
+    <a href="#" class="active">내 일기</a>
+    <a href="#">커뮤니티</a>
+    <a href="#">통계</a>
+    </div>
+    <div class="nav-profile">
+    <div class="notification-icon">
+        <span>🔔</span>
+        <div class="notification-badge">2</div>
+    </div>
+    <div class="profile-image"></div>
+    </div>
+</nav>
+
+<!-- 페이지 헤더 -->
+<div class="page-header">
+    <h1 class="page-title">내 일기</h1>
+    <div class="header-actions">
+    <button class="btn btn-primary">일기 작성하기</button>
+    </div>
+</div>
+
+<!-- 필터 및 뷰 컨트롤 -->
+<div class="controls">
+    <div class="left-controls">
+    <div class="filter-group">
+        <span class="filter-label">감정</span>
+        <div class="select-wrapper">
+        <select id="emotion-filter">
+            <option value="all">전체</option>
+            <option value="happy">행복</option>
+            <option value="sad">슬픔</option>
+            <option value="angry">분노</option>
+            <option value="calm">평온</option>
+            <option value="anxious">불안</option>
+            <option value="tired">피곤</option>
+            <option value="excited">신남</option>
+            <option value="confused">혼란</option>
+        </select>
+        </div>
+    </div>
+    
+    <div class="filter-group">
+        <span class="filter-label">정렬</span>
+        <div class="select-wrapper">
+        <select id="sort-filter">
+            <option value="date-desc">최신순</option>
+            <option value="date-asc">오래된순</option>
+            <option value="title">제목순</option>
+        </select>
+        </div>
+    </div>
+    
+    <div class="filter-group">
+        <span class="filter-label">공개</span>
+        <div class="select-wrapper">
+        <select id="visibility-filter">
+            <option value="all">전체</option>
+            <option value="public">공개</option>
+            <option value="private">비공개</option>
+        </select>
+        </div>
+    </div>
+    
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+    </div>
+    </div>
+    
+    <div class="right-controls">
+    <div class="view-toggle">
+        <div class="view-option active" data-view="grid">📱</div>
+        <div class="view-option" data-view="list">📃</div>
+        <div class="view-option" data-view="calendar">📅</div>
+    </div>
+    </div>
+</div>
+
+<!-- 다이어리 그리드 뷰 (기본) -->
+<div class="diary-grid">
+    <!-- 일기 카드 1 -->
+    <div class="diary-card">
+    <div class="diary-color-tag happy"></div>
+    <div class="diary-content">
+        <div class="diary-header">
+        <div class="diary-date">2025.03.29 토요일</div>
+        <div class="diary-visibility">🌎</div>
+        </div>
+        <h3 class="diary-title">봄 날씨와 함께한 산책</h3>
+        <p class="diary-preview">오늘은 날씨가 정말 좋아서 오랜만에 한강공원에 산책을 나갔다. 벚꽃이 막 피기 시작해서 정말 예뻤다. 공원에는 많은 사람들이 나와 봄을 즐기고 있었고, 나도 그 속에서 평화로운 시간을 보냈다.</p>
+        <div class="diary-footer">
+        <div class="diary-emotion">
+            <div class="emotion-icon-small happy">😊</div>
+            <span class="emotion-name-small">행복</span>
+        </div>
+        <div class="diary-stats">
+            <span>❤️ 3</span>
+            <span>💬 1</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 일기 카드 2 -->
+    <div class="diary-card">
+    <div class="diary-color-tag anxious"></div>
+    <div class="diary-content">
+        <div class="diary-header">
+        <div class="diary-date">2025.03.28 금요일</div>
+        <div class="diary-visibility">🔒</div>
+        </div>
+        <h3 class="diary-title">업무에 대한 고민</h3>
+        <p class="diary-preview">프로젝트 마감이 다가오는데 아직 해결하지 못한 문제가 있어서 걱정이다. 주말에도 시간을 내서 좀 더 고민해봐야 할 것 같다. 가끔은 이런 상황이 부담스럽게 느껴질 때가 있다.</p>
+        <div class="diary-footer">
+        <div class="diary-emotion">
+            <div class="emotion-icon-small anxious">😰</div>
+            <span class="emotion-name-small">불안</span>
+        </div>
+        <div class="diary-stats">
+            <span>❤️ 0</span>
+            <span>💬 0</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 일기 카드 3 -->
+    <div class="diary-card">
+    <div class="diary-color-tag excited"></div>
+    <div class="diary-content">
+        <div class="diary-header">
+        <div class="diary-date">2025.03.27 목요일</div>
+        <div class="diary-visibility">🌎</div>
+        </div>
+        <h3 class="diary-title">오랜만에 만난 친구</h3>
+        <p class="diary-preview">대학 때 친구를 오랜만에 만났다. 서로 많이 바빠서 자주 볼 수는 없지만, 만날 때마다 시간 가는 줄 모르게 이야기를 나눈다. 각자의 삶에 대해 이야기하며 응원해주는 그런 친구가 있어 행운이다.</p>
+        <div class="diary-footer">
+        <div class="diary-emotion">
+            <div class="emotion-icon-small excited">🤩</div>
+            <span class="emotion-name-small">신남</span>
+        </div>
+        <div class="diary-stats">
+            <span>❤️ 5</span>
+            <span>💬 2</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 일기 카드 4 -->
+    <div class="diary-card">
+    <div class="diary-color-tag calm"></div>
+    <div class="diary-content">
+        <div class="diary-header">
+        <div class="diary-date">2025.03.26 수요일</div>
+        <div class="diary-visibility">🌎</div>
+        </div>
+        <h3 class="diary-title">평화로운 하루</h3>
+        <p class="diary-preview">특별한 일은 없었지만, 평소보다 여유롭게 하루를 보냈다. 좋아하는 음악을 들으며 책도 읽고, 저녁에는 따뜻한 차를 마시며 창밖을 바라보았다. 가끔은 이런 평범한 순간들이 더 소중하게 느껴진다.</p>
+        <div class="diary-footer">
+        <div class="diary-emotion">
+            <div class="emotion-icon-small calm">😌</div>
+            <span class="emotion-name-small">평온</span>
+        </div>
+        <div class="diary-stats">
+            <span>❤️ 2</span>
+            <span>💬 0</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 일기 카드 5 -->
+    <div class="diary-card">
+    <div class="diary-color-tag tired"></div>
+    <div class="diary-content">
+        <div class="diary-header">
+        <div class="diary-date">2025.03.25 화요일</div>
+        <div class="diary-visibility">🔒</div>
+        </div>
+        <h3 class="diary-title">긴 회의 후의 피로감</h3>
+        <p class="diary-preview">오늘은 몇 시간 동안 연속으로 회의를 했다. 중요한 내용이었지만 너무 길어져서 집중력이 떨어졌다. 업무가 끝나고 집에 돌아오니 피로감이 몰려왔다. 오늘은 일찍 자고 내일을 준비해야겠다.</p>
+        <div class="diary-footer">
+        <div class="diary-emotion">
+            <div class="emotion-icon-small tired">😴</div>
+            <span class="emotion-name-small">피곤</span>
+        </div>
+        <div class="diary-stats">
+            <span>❤️ 0</span>
+            <span>💬 0</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 일기 카드 6 -->
+    <div class="diary-card">
+    <div class="diary-color-tag sad"></div>
+    <div class="diary-content">
+        <div class="diary-header">
+        <div class="diary-date">2025.03.24 월요일</div>
+        <div class="diary-visibility">🔒</div>
+        </div>
+        <h3 class="diary-title">우울한 비 오는 월요일</h3>
+        <p class="diary-preview">오늘은 아침부터 비가 내렸다. 월요일에 비까지 내리니 더 우울한 기분이 든다. 출근길에 우산을 들고 가는데 바람이 불어 옷이 젖었고, 그 상태로 하루를 시작해야 했다. 쉽지 않은 하루였다.</p>
+        <div class="diary-footer">
+            <div class="diary-emotion">
+            <div class="emotion-icon-small sad">😢</div>
+            <span class="emotion-name-small">슬픔</span>
+        </div>
+        <div class="diary-stats">
+            <span>❤️ 0</span>
+            <span>💬 0</span>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- 다이어리 리스트 뷰 -->
+<div class="diary-list">
+    <!-- 리스트 아이템 1 -->
+    <div class="diary-list-item">
+    <div class="list-emotion">
+        <div class="list-emotion-icon happy">😊</div>
+        <div class="list-emotion-name">행복</div>
+    </div>
+    <div class="list-content">
+        <div class="list-header">
+        <h3 class="list-title">봄 날씨와 함께한 산책</h3>
+        <div class="list-date">2025.03.29 토요일 🌎</div>
+        </div>
+        <p class="list-preview">오늘은 날씨가 정말 좋아서 오랜만에 한강공원에 산책을 나갔다. 벚꽃이 막 피기 시작해서 정말 예뻤다. 공원에는 많은 사람들이 나와 봄을 즐기고 있었고, 나도 그 속에서 평화로운 시간을 보냈다.</p>
+        <div class="list-footer">
+        <div class="list-stats">
+            <span>❤️ 3</span>
+            <span>💬 1</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 리스트 아이템 2 -->
+    <div class="diary-list-item">
+    <div class="list-emotion">
+        <div class="list-emotion-icon anxious">😰</div>
+        <div class="list-emotion-name">불안</div>
+    </div>
+    <div class="list-content">
+        <div class="list-header">
+        <h3 class="list-title">업무에 대한 고민</h3>
+        <div class="list-date">2025.03.28 금요일 🔒</div>
+        </div>
+        <p class="list-preview">프로젝트 마감이 다가오는데 아직 해결하지 못한 문제가 있어서 걱정이다. 주말에도 시간을 내서 좀 더 고민해봐야 할 것 같다. 가끔은 이런 상황이 부담스럽게 느껴질 때가 있다.</p>
+        <div class="list-footer">
+        <div class="list-stats">
+            <span>❤️ 0</span>
+            <span>💬 0</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 리스트 아이템 3 -->
+    <div class="diary-list-item">
+    <div class="list-emotion">
+        <div class="list-emotion-icon excited">🤩</div>
+        <div class="list-emotion-name">신남</div>
+    </div>
+    <div class="list-content">
+        <div class="list-header">
+        <h3 class="list-title">오랜만에 만난 친구</h3>
+        <div class="list-date">2025.03.27 목요일 🌎</div>
+        </div>
+        <p class="list-preview">대학 때 친구를 오랜만에 만났다. 서로 많이 바빠서 자주 볼 수는 없지만, 만날 때마다 시간 가는 줄 모르게 이야기를 나눈다. 각자의 삶에 대해 이야기하며 응원해주는 그런 친구가 있어 행운이다.</p>
+        <div class="list-footer">
+        <div class="list-stats">
+            <span>❤️ 5</span>
+            <span>💬 2</span>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 더 많은 리스트 아이템이 여기에 들어갈 수 있습니다 -->
+</div>
+
+<!-- 다이어리 달력 뷰 -->
+<div class="diary-calendar">
+    <div class="calendar-header">
+    <h3 class="current-month">2025년 3월</h3>
+    <div class="calendar-navigation">
+        <button class="calendar-nav-btn">◀</button>
+        <button class="calendar-nav-btn">▶</button>
+    </div>
+    </div>
+    
+    <div class="calendar-grid">
+    <!-- 요일 헤더 -->
+    <div class="weekday">일</div>
+    <div class="weekday">월</div>
+    <div class="weekday">화</div>
+    <div class="weekday">수</div>
+    <div class="weekday">목</div>
+    <div class="weekday">금</div>
+    <div class="weekday">토</div>
+    
+    <!-- 이전 달의 날짜 -->
+    <div class="calendar-day different-month">
+        <div class="day-number">23</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">24</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">25</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">26</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">27</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">28</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">1</div>
+    </div>
+    
+    <!-- 3월 첫 주 -->
+    <div class="calendar-day">
+        <div class="day-number">2</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">3</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">4</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">5</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">6</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">7</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">8</div>
+    </div>
+    
+    <!-- 3월 둘째 주 -->
+    <div class="calendar-day">
+        <div class="day-number">9</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">10</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">11</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">12</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">13</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">14</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">15</div>
+    </div>
+    
+    <!-- 3월 셋째 주 -->
+    <div class="calendar-day">
+        <div class="day-number">16</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">17</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">18</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">19</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">20</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">21</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">22</div>
+    </div>
+    
+    <!-- 3월 넷째 주 -->
+    <div class="calendar-day">
+        <div class="day-number">23</div>
+    </div>
+    <div class="calendar-day has-diary">
+        <div class="day-number">24</div>
+        <div class="day-emotion-indicator sad"></div>
+    </div>
+    <div class="calendar-day has-diary">
+        <div class="day-number">25</div>
+        <div class="day-emotion-indicator tired"></div>
+    </div>
+    <div class="calendar-day has-diary">
+        <div class="day-number">26</div>
+        <div class="day-emotion-indicator calm"></div>
+    </div>
+    <div class="calendar-day has-diary">
+        <div class="day-number">27</div>
+        <div class="day-emotion-indicator excited"></div>
+    </div>
+    <div class="calendar-day has-diary">
+        <div class="day-number">28</div>
+        <div class="day-emotion-indicator anxious"></div>
+    </div>
+    <div class="calendar-day has-diary">
+        <div class="day-number">29</div>
+        <div class="day-emotion-indicator happy"></div>
+    </div>
+    
+    <!-- 3월 다섯째 주 -->
+    <div class="calendar-day current">
+        <div class="day-number">30</div>
+    </div>
+    <div class="calendar-day">
+        <div class="day-number">31</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">1</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">2</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">3</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">4</div>
+    </div>
+    <div class="calendar-day different-month">
+        <div class="day-number">5</div>
+    </div>
+    </div>
+</div>
+
+<!-- 빈 상태 -->
+<div class="empty-state">
+    <div class="empty-icon">📖</div>
+    <h3 class="empty-title">아직 일기가 없어요</h3>
+    <p class="empty-description">첫 번째 일기를 작성하고 감정을 기록해보세요</p>
+    <button class="btn btn-primary">일기 작성하기</button>
+</div>
+
+<!-- 페이지네이션 -->
+<div class="pagination">
+    <div class="page-nav disabled">◀</div>
+    <div class="page-item active">1</div>
+    <div class="page-item">2</div>
+    <div class="page-item">3</div>
+    <div class="page-nav">▶</div>
+</div>
+</div>
+
+</body>
+</html>
+            
