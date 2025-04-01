@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>무드 구름 - 일기 상세 보기</title>
+
+</head>
+<body>
+<div class="container">
+<!-- 네비게이션 바 -->
+<nav>
+    <div class="nav-logo">
+    <img src="/api/placeholder/40/40" alt="무드 구름 로고">
+    <h1>Mood Cloud</h1>
+    </div>
+    <div class="nav-links">
+    <a href="#">홈</a>
+    <a href="#" class="active">내 일기</a>
+    <a href="#">커뮤니티</a>
+    <a href="#">통계</a>
+    </div>
+    <div class="nav-profile">
+    <div class="notification-icon">
+        <span>🔔</span>
+        <div class="notification-badge">2</div>
+    </div>
+    <div class="profile-image"></div>
+    </div>
+</nav>
+
+<!-- 상단 내비게이션 -->
+<div class="diary-nav">
+    <button class="back-btn">← 뒤로가기</button>
+    <div class="diary-path">
+    <a href="#" class="path-item">내 일기</a>
+    <span class="path-separator">/</span>
+    <span class="path-current">봄 날씨와 함께한 산책</span>
+    </div>
+</div>
+
+<!-- 페이지 레이아웃 -->
+<div class="diary-detail-layout">
+    <!-- 왼쪽 영역 -->
+    <div class="diary-main">
+    <!-- 일기 내용 영역 -->
+    <div class="diary-content">
+        <div class="diary-emotion-tag">
+        <div class="emotion-icon happy">😊</div>
+        <span class="emotion-name">행복</span>
+        </div>
+        
+        <div class="diary-actions">
+        <button class="action-btn" title="수정하기">✏️</button>
+        <button class="action-btn" title="삭제하기">🗑️</button>
+        </div>
+        
+        <div class="diary-meta">
+        <div class="diary-date">📅 2025.03.29 토요일</div>
+        <div class="diary-visibility">🌎 공개</div>
+        </div>
+        
+        <h1 class="diary-title">봄 날씨와 함께한 산책</h1>
+        
+        <div class="diary-text">
+        <p class="diary-paragraph">오늘은 날씨가 정말 좋아서 오랜만에 한강공원에 산책을 나갔다. 벚꽃이 막 피기 시작해서 정말 예뻤다. 공원에는 많은 사람들이 나와 봄을 즐기고 있었고, 나도 그 속에서 평화로운 시간을 보냈다.</p>
+        
+        <p class="diary-paragraph">요즘 일이 바빠서 자연을 느낄 여유가 없었는데, 이렇게 시간을 내서 나오니 마음이 한결 가벼워지는 기분이다. 강가를 따라 천천히 걷다 보니 계절의 변화를 온전히 느낄 수 있었다. 겨울의 차가움이 가시고 봄의 따뜻함이 찾아오는 그 경계에 서 있는 기분이었다.</p>
+        
+        <img src="/api/placeholder/800/400" alt="한강 벚꽃 사진" class="diary-image">
+        
+        <p class="diary-paragraph">산책하는 동안 좋아하는 음악을 들으며 생각도 정리하고, 오랜만에 여유를 즐겼다. 이런 시간이 더 자주 있었으면 좋겠다. 일상에 쫓기다 보면 잊기 쉬운 소소한 행복이지만, 사실 이런 순간들이 삶에 활력을 불어넣는 것 같다.</p>
+        
+        <p class="diary-paragraph">돌아오는 길에는 카페에 들러 따뜻한 차 한 잔과 함께 책을 읽었다. 평소에는 시간이 아깝다는 생각에 가만히 앉아있는 것조차 불안했는데, 오늘은 그런 조급함 없이 여유를 즐길 수 있었다. 앞으로도 이런 시간을 의식적으로 만들어야겠다.</p>
+        </div>
+        
+        <div class="diary-tags">
+        <span class="diary-tag">산책</span>
+        <span class="diary-tag">봄</span>
+        <span class="diary-tag">한강</span>
+        <span class="diary-tag">벚꽃</span>
+        <span class="diary-tag">여유</span>
+        </div>
+        
+        <div class="diary-stats">
+        <div class="stat-items">
+            <div class="stat-item">❤️ 좋아요 3</div>
+            <div class="stat-item">💬 댓글 1</div>
+        </div>
+        <button class="share-btn">📤 공유하기</button>
+        </div>
+    </div>
+    
+    <!-- 댓글 영역 -->
+    <div class="comments-section">
+        <h3 class="comments-header">댓글 <span class="comment-count">1</span></h3>
+        
+        <div class="comment-input-area">
+        <div class="comment-avatar"></div>
+        <div class="comment-input-wrapper">
+            <input type="text" class="comment-input" placeholder="댓글을 남겨보세요...">
+            <button class="comment-submit">➤</button>
+        </div>
+        </div>
+        
+        <div class="comments-list">
+        <div class="comment-item">
+            <div class="comment-avatar"></div>
+            <div class="comment-content">
+            <div class="comment-header">
+                <div class="comment-author">미나</div>
+                <div class="comment-time">2시간 전</div>
+            </div>
+            <div class="comment-text">나도 오늘 한강에 다녀왔는데 정말 날씨가 좋았어! 벚꽃 사진 너무 예쁘다 ♥</div>
+            <div class="comment-actions">
+                <span class="comment-action">좋아요</span>
+                <span class="comment-action">답글 달기</span>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- 오른쪽 사이드바 -->
+    <div class="diary-sidebar">
+    <!-- 작성자 정보 위젯 -->
+    <div class="widget author-widget">
+        <div class="author-avatar"></div>
+        <h3 class="author-name">지은</h3>
+        <p class="author-bio">일상의 소소한 행복을 기록하는 글쓰기를 좋아합니다. 음악과 카페 탐방이 취미입니다.</p>
+        <button class="follow-btn following-btn">팔로잉</button>
+        
+        <div class="author-stats">
+        <div class="author-stat">
+            <div class="stat-count">42</div>
+            <div class="stat-label">일기</div>
+        </div>
+        <div class="author-stat">
+            <div class="stat-count">128</div>
+            <div class="stat-label">팔로워</div>
+        </div>
+        <div class="author-stat">
+            <div class="stat-count">85</div>
+            <div class="stat-label">팔로잉</div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- 날씨 위젯 -->
+    <div class="widget weather-widget">
+        <div class="weather-icon">☀️</div>
+        <div class="weather-info">
+        <div class="weather-date">2025.03.29 작성 당시</div>
+        <div class="weather-temp">18°C</div>
+        <div class="weather-desc">맑음, 미세먼지 좋음</div>
+        <div class="weather-location">서울특별시 강남구</div>
+        </div>
+    </div>
+    
+    <!-- 관련 일기 위젯 -->
+    <div class="widget related-diaries-widget">
+        <h3 class="widget-title">관련 일기</h3>
+        <div class="related-list">
+        <div class="related-diary">
+            <div class="related-emotion excited">🤩</div>
+            <div class="related-content">
+            <div class="related-title">벚꽃 축제 다녀온 날</div>
+            <div class="related-date">2024.04.12</div>
+            </div>
+        </div>
+        
+        <div class="related-diary">
+            <div class="related-emotion calm">😌</div>
+            <div class="related-content">
+            <div class="related-title">주말 한강 소풍</div>
+            <div class="related-date">2024.05.22</div>
+            </div>
+        </div>
+        
+        <div class="related-diary">
+            <div class="related-emotion happy">😊</div>
+            <div class="related-content">
+            <div class="related-title">봄비가 그친 후의 산책</div>
+            <div class="related-date">2025.03.15</div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
