@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무드 구름 - 감정 통계</title>
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+        background: linear-gradient(135deg, #f8e1e7, #e1eaf8, #e1f8f4);
+        min-height: 100vh;
+        color: #555;
+        padding-bottom: 50px;
+        }
+        
+        .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        }
+        
+        /* 네비게이션 바 */
+        nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .nav-logo {
+        display: flex;
+        align-items: center;
+        }
+        
+        .nav-logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        background-color: #ddd;
+        border-radius: 8px;
+        }
+        
+        .nav-logo h1 {
+        font-size: 1.5rem;
+        color: #b881c2;
+        font-weight: 600;
+        }
+        
+        .nav-links {
+        display: flex;
+        gap: 25px;
+        }
+        
+        .nav-links a {
+        text-decoration: none;
+        color: #777;
+        font-weight: 500;
+        transition: color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+        color: #b881c2;
+        }
+        
+        .nav-profile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        }
+        
+        .notification-icon {
+        position: relative;
+        cursor: pointer;
+        }
+        
+        .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff6b6b;
+        color: white;
+        font-size: 10px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        
+        .profile-image {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #ddd;
+        cursor: pointer;
+        }
+        
+        /* 페이지 헤더 */
+        .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 30px 0;
+        }
+        
+        .page-title {
+        font-size: 1.8rem;
+        color: #333;
+        }
+        
+        .time-range-selector {
+        display: flex;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        }
+        
+        .time-option {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.2s;
+        }
+        
+        .time-option.active {
+        background: #b881c2;
+        color: white;
+        }
+        
+        /* 통계 레이아웃 */
+        .stats-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+        }
+        
+        /* 통계 카드 공통 스타일 */
+        .stats-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        margin-bottom: 30px;
+        }
+        
+        .stats-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        }
+        
+        .stats-card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #444;
+        }
+        
+        .stats-dropdown {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        background: #f9f9f9;
+        color: #777;
+        cursor: pointer;
+        }
+        
+        /* 감정 분포 차트 */
+        .emotion-distribution {
+        height: 300px;
+        position: relative;
+        }
+        
+        .pie-chart-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        
+        .pie-chart {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(
+            #FFEAA7 0% 40%,
+            #B5EAD7 40% 70%,
+            #C7CEEA 70% 85%,
+            #A3D8F4 85% 95%,
+            #FFB7B7 95% 100%
+        );
+        position: relative;
+        }
+        
+        .pie-center {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: white;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        }
+        
+        .pie-center-emotion {
+        font-size: 2rem;
+        margin-bottom: 5px;
+        }
+        
+        .pie-center-text {
+        font-size: 0.9rem;
+        color: #666;
+        font-weight: 500;
+        }
+        
+        .pie-legend {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        }
+        
+        .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: #666;
+        }
+        
+        .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        }
+        
+        .legend-value {
+        font-weight: 600;
+        color: #444;
+        }
+        
+        /* 감정 추이 차트 */
+        .emotion-trend-chart {
+        height: 250px;
+        margin-top: 15px;
+        position: relative;
+        }
+        
+        .chart-container {
+        width: 100%;
+        height: 100%;
+        padding-left: 40px;
+        padding-bottom: 30px;
+        }
+        
+        .chart-grid {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(14, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 1px;
+        }
+        
+        .grid-line {
+        border-bottom: 1px solid #eee;
+        }
+        
+        .y-axis {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 30px;
+        width: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 5px 10px 5px 0;
+        font-size: 0.75rem;
+        color: #999;
+        }
+        
+        .x-axis {
+        position: absolute;
+        bottom: 0;
+        left: 40px;
+        right: 0;
+        height: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        color: #999;
+        }
+        
+        .chart-line {
+        position: absolute;
+        top: 0;
+        left: 40px;
+        right: 0;
+        bottom: 30px;
+        pointer-events: none;
+        }
+        
+        .line {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        stroke: #b881c2;
+        stroke-width: 2;
+        fill: none;
+        }
+        
+        .area {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        fill: url(#gradient);
+        opacity: 0.2;
+        }
+        
+        .point {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #b881c2;
+        transform: translate(-50%, -50%);
+        }
+        
+        /* 감정 달력 */
+        .emotion-calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        }
+        
+        .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 0 5px;
+        }
+        
+        .month-selector {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #444;
+        }
+        
+        .calendar-nav {
+        display: flex;
+        gap: 10px;
+        }
+        
+        .calendar-nav button {
+        background: none;
+        border: none;
+        font-size: 0.9rem;
+        color: #888;
+        cursor: pointer;
+        }
+        
+        .weekday {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #999;
+        padding: 5px 0;
+        }
+        
+        .calendar-date {
+        aspect-ratio: 1/1;
+        border-radius: 10px;
+        background: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        }
+        
+        .date-number {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 5px;
+        }
+        
+        .date-emotion {
+        font-size: 1.2rem;
+        }
+        
+        .empty-date {
+        background: transparent;
+        }
+        
+        /* 오른쪽 사이드바 */
+        .stats-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        }
+        
+        /* 감정 요약 카드 */
+        .emotion-summary {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        }
+        
+        .summary-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        }
+        
+        .primary-emotion {
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        }
+        
+        .primary-emotion-info {
+        flex: 1;
+        }
+        
+        .primary-emotion-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 5px;
+        }
+        
+        .primary-emotion-desc {
+        font-size: 0.9rem;
+        color: #777;
+        }
+        
+        .emotion-stats-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        }
+        
+        .emotion-stat-item {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        }
+        
+        .emotion-icon-small {
+        width: 35px;
+        height: 35px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        }
+        
+        .emotion-stat-info {
+        flex: 1;
+        }
+        
+        .emotion-stat-name {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #555;
+        }
+        
+        .emotion-stat-progress {
+        height: 5px;
+        background: #f0f0f0;
+        border-radius: 3px;
+        margin-top: 5px;
+        overflow: hidden;
+        }
+        
+        .progress-value {
+        height: 100%;
+        border-radius: 3px;
+        }
+        
+        .emotion-stat-percent {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #444;
+        }
+        
+        /* 인사이트 카드 */
+        .insights-card {
+        padding-bottom: 10px;
+        }
+        
+        .insights-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        }
+        
+        .insight-item {
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        }
+        
+        .insight-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        }
+        
+        .insight-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #b881c2;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.9rem;
+        }
+        
+        .insight-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #444;
+        }
+        
+        .insight-content {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.5;
+        }
+        
+        /* 활동 추적 카드 */
+        .activity-tracking {
+        padding-bottom: 10px;
+        }
+        
+        .streak-display {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        }
+        
+        .streak-column {
+        text-align: center;
+        }
+        
+        .streak-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #b881c2;
+        margin-bottom: 5px;
+        }
+        
+        .streak-label {
+        font-size: 0.85rem;
+        color: #888;
+        }
+        
+        .calendar-row {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        }
+        
+        .calendar-dot {
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+        background: #f0f0f0;
+        }
+        
+        .calendar-dot.has-entry {
+        background: #b881c2;
+        }
+        
+        .calendar-footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #999;
+        }
+        
+        /* 감정 컬러 */
+        .happy {
+        background: #FFEAA7;
+        }
+        
+        .happy-text {
+        color: #d4ac0d;
+        }
+        
+        .happy-progress {
+        background: #FFEAA7;
+        }
+        
+        .sad {
+        background: #A3D8F4;
+        }
+        
+        .sad-text {
+        color: #3498db;
+        }
+        
+        .sad-progress {
+        background: #A3D8F4;
+        }
+        
+        .angry {
+        background: #FFB7B7;
+        }
+        
+        .angry-text {
+        color: #e74c3c;
+        }
+        
+        .angry-progress {
+        background: #FFB7B7;
+        }
+        
+        .calm {
+        background: #B5EAD7;
+        }
+        
+        .calm-text {
+        color: #2ecc71;
+        }
+        
+        .calm-progress {
+        background: #B5EAD7;
+        }
+        
+        .anxious {
+        background: #C7CEEA;
+        }
+        
+        .anxious-text {
+        color: #5758BB;
+        }
+        
+        .anxious-progress {
+        background: #C7CEEA;
+        }
+        
+        /* 반응형 */
+        @media (max-width: 992px) {
+        .stats-layout {
+            grid-template-columns: 1fr;
+        }
+        
+        .stats-sidebar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        }
+        
+        @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+        
+        .stats-sidebar {
+            grid-template-columns: 1fr;
+        }
+        
+        .pie-chart {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .pie-center {
+            width: 90px;
+            height: 90px;
+        }
+        }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <!-- 네비게이션 바 -->
+        <nav>
+        <div class="nav-logo">
+            <img src="/api/placeholder/40/40" alt="무드 구름 로고">
+            <h1>Mood Cloud</h1>
+        </div>
+        <div class="nav-links">
+            <a href="/main">홈</a>
+            <a href="/diary/list">내 일기</a>
+            <a href="/community">커뮤니티</a>
+            <a href="/stats" class="active">통계</a>
+        </div>
+        <div class="nav-profile">
+            <div class="notification-icon">
+            <span>🔔</span>
+            <div class="notification-badge">2</div>
+            </div>
+            <div class="profile-image"></div>
+        </div>
+        </nav>
+
+        <!-- 페이지 헤더 -->
+        <div class="page-header">
+        <h1 class="page-title">감정 통계</h1>
+        <div class="time-range-selector">
+            <div class="time-option">주간</div>
+            <div class="time-option active">월간</div>
+            <div class="time-option">분기</div>
+            <div class="time-option">연간</div>
+        </div>
+        </div>
+
+        <!-- 통계 레이아웃 -->
+        <div class="stats-layout">
+        <!-- 왼쪽 - 주요 통계 차트 -->
+        <div class="stats-main">
+            <!-- 감정 분포 차트 -->
+            <div class="stats-card">
+            <div class="stats-card-header">
+                <h3 class="stats-card-title">감정 분포</h3>
+                <select class="stats-dropdown">
+                <option>3월 전체</option>
+                <option>최근 30일</option>
+                <option>최근 90일</option>
+                </select>
+            </div>
+            
+            <div class="emotion-distribution">
+                <div class="pie-chart-container">
+                <div class="pie-chart">
+                    <div class="pie-center">
+                    <div class="pie-center-emotion">😊</div>
+                    <div class="pie-center-text">행복 (40%)</div>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="pie-legend">
+                <div class="legend-item">
+                    <div class="legend-color happy"></div>
+                    <span>행복</span>
+                    <span class="legend-value">40%</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color calm"></div>
+                    <span>평온</span>
+                    <span class="legend-value">30%</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color anxious"></div>
+                    <span>불안</span>
+                    <span class="legend-value">15%</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color sad"></div>
+                    <span>슬픔</span>
+                    <span class="legend-value">10%</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color angry"></div>
+                    <span>분노</span>
+                    <span class="legend-value">5%</span>
+                </div>
+                </div>
+            </div>
+            </div>
+            
+            <!-- 감정 추이 차트 -->
+            <div class="stats-card">
+            <div class="stats-card-header">
+                <h3 class="stats-card-title">감정 추이</h3>
+                <select class="stats-dropdown">
+                <option>모든 감정</option>
+                <option>행복</option>
+                <option>평온</option>
+                <option>불안</option>
+                <option>슬픔</option>
+                </select>
+            </div>
+            
+            <div class="emotion-trend-chart">
+                <div class="y-axis">
+                <div>5</div>
+                <div>4</div>
+                <div>3</div>
+                <div>2</div>
+                <div>1</div>
+                </div>
+                
+                <div class="x-axis">
+                <div>3/1</div>
+                <div>3/5</div>
+                <div>3/10</div>
+                <div>3/15</div>
+                <div>3/20</div>
+                <div>3/25</div>
+                <div>3/30</div>
+                </div>
+                
+                <div class="chart-container">
+                <div class="chart-grid">
+                    <!-- Grid lines -->
+                </div>
+                
+                <div class="chart-line">
+                    <!-- SVG line chart would be here in real implementation -->
+                    <!-- Placeholder points for example -->
+                    <div class="point" style="left: 10%; top: 70%;"></div>
+                    <div class="point" style="left: 20%; top: 50%;"></div>
+                    <div class="point" style="left: 30%; top: 60%;"></div>
+                    <div class="point" style="left: 40%; top: 30%;"></div>
+                    <div class="point" style="left: 50%; top: 20%;"></div>
+                    <div class="point" style="left: 60%; top: 40%;"></div>
+                    <div class="point" style="left: 70%; top: 25%;"></div>
+                    <div class="point" style="left: 80%; top: 35%;"></div>
+                    <div class="point" style="left: 90%; top: 20%;"></div>
+                </div>
+                </div>
+            </div>
+            </div>
+            
+            <!-- 감정 달력 -->
+            <div class="stats-card">
+            <div class="stats-card-header">
+                <h3 class="stats-card-title">월간 감정 달력</h3>
+                <div class="calendar-header">
+                <div class="month-selector">2025년 3월</div>
+                <div class="calendar-nav">
+                    <button>◀</button>
+                    <button>▶</button>
+                </div>
+                </div>
+            </div>
+            
+            <!-- 요일 헤더 -->
+            <div class="emotion-calendar">
+                <div class="weekday">일</div>
+                <div class="weekday">월</div>
+                <div class="weekday">화</div>
+                <div class="weekday">수</div>
+                <div class="weekday">목</div>
+                <div class="weekday">금</div>
+                <div class="weekday">토</div>
+                
+                <!-- 1주차 -->
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date">
+                <div class="date-number">29</div>
+                <div class="date-emotion">😊</div>
+                </div>
+                <div class="calendar-date">
+                <div class="date-number">30</div>
+                <div class="date-emotion">😊</div>
+                </div>
+                <div class="calendar-date">
+                <div class="date-number">31</div>
+                <div class="date-emotion">😌</div>
+                </div>
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date empty-date"></div>
+                <div class="calendar-date empty-date"></div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- 오른쪽 - 사이드바 통계 위젯 -->
+        <div class="stats-sidebar">
+            <!-- 감정 요약 카드 -->
+            <div class="stats-card emotion-summary">
+            <div class="summary-header">
+                <div class="primary-emotion happy">😊</div>
+                <div class="primary-emotion-info">
+                <div class="primary-emotion-name">행복이 가장 많아요</div>
+                <div class="primary-emotion-desc">이번 달은 행복한 감정이 가장 많았어요.</div>
+                </div>
+            </div>
+            
+            <div class="emotion-stats-list">
+                <div class="emotion-stat-item">
+                <div class="emotion-icon-small happy">😊</div>
+                <div class="emotion-stat-info">
+                    <div class="emotion-stat-name">행복</div>
+                    <div class="emotion-stat-progress">
+                    <div class="progress-value happy-progress" style="width: 40%;"></div>
+                    </div>
+                </div>
+                <div class="emotion-stat-percent">40%</div>
+                </div>
+                
+                <div class="emotion-stat-item">
+                <div class="emotion-icon-small calm">😌</div>
+                <div class="emotion-stat-info">
+                    <div class="emotion-stat-name">평온</div>
+                    <div class="emotion-stat-progress">
+                    <div class="progress-value calm-progress" style="width: 30%;"></div>
+                    </div>
+                </div>
+                <div class="emotion-stat-percent">30%</div>
+                </div>
+                
+                <div class="emotion-stat-item">
+                <div class="emotion-icon-small anxious">😰</div>
+                <div class="emotion-stat-info">
+                    <div class="emotion-stat-name">불안</div>
+                    <div class="emotion-stat-progress">
+                    <div class="progress-value anxious-progress" style="width: 15%;"></div>
+                    </div>
+                </div>
+                <div class="emotion-stat-percent">15%</div>
+                </div>
+                
+                <div class="emotion-stat-item">
+                <div class="emotion-icon-small sad">😢</div>
+                <div class="emotion-stat-info">
+                    <div class="emotion-stat-name">슬픔</div>
+                    <div class="emotion-stat-progress">
+                    <div class="progress-value sad-progress" style="width: 10%;"></div>
+                    </div>
+                </div>
+                <div class="emotion-stat-percent">10%</div>
+                </div>
+                
+                <div class="emotion-stat-item">
+                <div class="emotion-icon-small angry">😠</div>
+                <div class="emotion-stat-info">
+                    <div class="emotion-stat-name">분노</div>
+                    <div class="emotion-stat-progress">
+                    <div class="progress-value angry-progress" style="width: 5%;"></div>
+                    </div>
+                </div>
+                <div class="emotion-stat-percent">5%</div>
+                </div>
+            </div>
+            </div>
+            
+            <!-- 인사이트 카드 -->
+            <div class="stats-card insights-card">
+            <div class="stats-card-header">
+                <h3 class="stats-card-title">감정 인사이트</h3>
+            </div>
+            
+            <div class="insights-list">
+                <div class="insight-item">
+                <div class="insight-header">
+                    <div class="insight-icon">💡</div>
+                    <div class="insight-title">감정 패턴</div>
+                </div>
+                <div class="insight-content">
+                    평일에는 불안과 스트레스가 많고, 주말에는 행복과 평온함이 증가하는 패턴이 보입니다. 평일에 스트레스 관리를 위한 활동을 추가해 보세요.
+                </div>
+                </div>
+                
+                <div class="insight-item">
+                <div class="insight-header">
+                    <div class="insight-icon">📈</div>
+                    <div class="insight-title">감정 추이</div>
+                </div>
+                <div class="insight-content">
+                    지난 달에 비해 행복한 감정이 15% 증가했습니다. 특히 운동 관련 일기에서 긍정적인 감정이 많이 나타나고 있습니다.
+                </div>
+                </div>
+                
+                <div class="insight-item">
+                <div class="insight-header">
+                    <div class="insight-icon">🔄</div>
+                    <div class="insight-title">변화 요인</div>
+                </div>
+                <div class="insight-content">
+                    '운동', '친구', '취미' 관련 활동에서 행복한 감정이 많이 기록되었습니다. 이러한 활동을 더 자주 하는 것이 도움이 될 수 있습니다.
+                </div>
+                </div>
+            </div>
+            </div>
+            
+            <!-- 활동 추적 카드 -->
+            <div class="stats-card activity-tracking">
+            <div class="stats-card-header">
+                <h3 class="stats-card-title">일기 작성 활동</h3>
+            </div>
+            
+            <div class="streak-display">
+                <div class="streak-column">
+                <div class="streak-value">7</div>
+                <div class="streak-label">연속 일수</div>
+                </div>
+                <div class="streak-column">
+                <div class="streak-value">27</div>
+                <div class="streak-label">이번 달</div>
+                </div>
+                <div class="streak-column">
+                <div class="streak-value">83</div>
+                <div class="streak-label">총 일기</div>
+                </div>
+            </div>
+            
+            <!-- 작은 캘린더 그리드 -->
+            <div class="calendar-grid">
+                <div class="calendar-row">
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                </div>
+                <div class="calendar-row">
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                </div>
+                <div class="calendar-row">
+                <div class="calendar-dot"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot"></div>
+                </div>
+                <div class="calendar-row">
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                <div class="calendar-dot has-entry"></div>
+                </div>
+            </div>
+            
+            <div class="calendar-footer">
+                <div>3월 1일</div>
+                <div>3월 31일</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        // 시간 범위 선택기 기능
+        const timeOptions = document.querySelectorAll('.time-option');
+        
+        timeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            timeOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+        });
+        });
+        
+        // 차트 애니메이션 및 인터랙션은 실제 구현 시 자바스크립트 라이브러리
+        // (예: Chart.js, D3.js) 등을 사용하여 구현할 수 있습니다.
+        
+        // 이 예제에서는 정적 디자인만 보여주기 위해 간단한 스크립트만 포함했습니다.
+    </script>
+</body>
+</html>
