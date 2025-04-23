@@ -3,75 +3,75 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
+}
+
+body {
     background: linear-gradient(135deg, #f8e1e7, #e1eaf8, #e1f8f4);
     min-height: 100vh;
     color: #555;
     padding-bottom: 50px;
-    }
-    
-    .container {
+}
+
+.container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    }
-    
-    /* 네비게이션 바 */
-    nav {
+}
+
+/* 네비게이션 바 */
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    }
-    
-    .nav-logo {
+}
+
+.nav-logo {
     display: flex;
     align-items: center;
-    }
-    
-    .nav-logo img {
+}
+
+.nav-logo img {
     width: 40px;
     height: 40px;
     margin-right: 10px;
-    }
-    
-    .nav-logo h1 {
+}
+
+.nav-logo h1 {
     font-size: 1.5rem;
     color: #b881c2;
     font-weight: 600;
-    }
-    
-    .nav-links {
+}
+
+.nav-links {
     display: flex;
     gap: 25px;
-    }
-    
-    .nav-links a {
+}
+
+.nav-links a {
     text-decoration: none;
     color: #777;
     font-weight: 500;
     transition: color 0.3s;
-    }
-    
-    .nav-links a:hover, .nav-links a.active {
+}
+
+.nav-links a:hover, .nav-links a.active {
     color: #b881c2;
-    }
-    
-    .nav-profile {
+}
+
+.nav-profile {
     display: flex;
     align-items: center;
     gap: 15px;
-    }
-    
-    .notification-icon {
+}
+
+.notification-icon {
     position: relative;
     cursor: pointer;
-    }
-    
-    .notification-badge {
+}
+
+.notification-badge {
     position: absolute;
     top: -5px;
     right: -5px;
@@ -84,83 +84,99 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    }
-    
-    .profile-image {
+}
+
+.profile-image {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     background: #ddd;
     cursor: pointer;
-    }
-    
-    /* 메인 헤더 */
-    .header {
+}
+
+/* 메인 헤더 */
+.header {
     margin-top: 40px;
     margin-bottom: 30px;
     text-align: center;
-    }
-    
-    .date {
+}
+
+.date {
     font-size: 0.9rem;
     color: #888;
     margin-bottom: 10px;
-    }
-    
-    .greeting {
+}
+
+.greeting {
     font-size: 1.8rem;
     color: #333;
     margin-bottom: 10px;
-    }
-    
-    .mood-question {
+}
+
+.mood-question {
     font-size: 1.2rem;
     color: #666;
-    }
-    
-    /* 메인 레이아웃 */
-    .main-content {
+}
+
+/* 메인 레이아웃 */
+.main-content {
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 30px;
-    }
-    
-    /* 감정 선택 섹션 */
-    .emotion-section {
+}
+
+/* 통합된 감정 선택 및 일기 작성 섹션 */
+.emotion-diary-section {
     background: white;
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-    
-    .section-title {
+}
+
+.section-title {
     font-size: 1.2rem;
     margin-bottom: 20px;
     color: #444;
     font-weight: 600;
-    }
-    
-    .emotion-grid {
+}
+
+.section-subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+.title-icon {
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+.emotion-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
-    }
-    
-    .emotion-item {
+}
+
+.emotion-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     transition: transform 0.3s;
-    }
-    
-    .emotion-item:hover {
+}
+
+.emotion-item:hover {
     transform: scale(1.05);
-    }
-    
-    .emotion-icon {
+}
+
+.emotion-item.selected .emotion-icon {
+    box-shadow: 0 0 0 3px #b881c2;
+}
+
+.emotion-icon {
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -168,84 +184,124 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 8px;
-    }
-    
-    .happy {
+}
+
+.happy {
     background: #FFEAA7;
-    }
-    
-    .sad {
+}
+
+.sad {
     background: #A3D8F4;
-    }
-    
-    .angry {
+}
+
+.angry {
     background: #FFB7B7;
-    }
-    
-    .calm {
+}
+
+.calm {
     background: #B5EAD7;
-    }
-    
-    .anxious {
+}
+
+.anxious {
     background: #C7CEEA;
-    }
-    
-    .tired {
+}
+
+.tired {
     background: #E2D8F3;
-    }
-    
-    .excited {
+}
+
+.excited {
     background: #FFD8BE;
-    }
-    
-    .confused {
+}
+
+.confused {
     background: #D8E2DC;
-    }
-    
-    .emotion-name {
+}
+
+.emotion-name {
     font-size: 0.9rem;
     color: #555;
-    }
-    
-    /* 일기 작성 섹션 */
-    .diary-write-section {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    text-align: center;
-    }
-    
-    .write-button {
+}
+
+/* 감정 선택 후 표시되는 영역 */
+.emotion-selected-area {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #e0e0e0;
+    display: none; /* 기본적으로 숨김, 감정 선택 시 JavaScript로 표시 */
+}
+
+.selected-emotion-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.selected-emotion-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.emotion-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.write-button {
     background: linear-gradient(135deg, #b881c2, #a06fb1);
     color: white;
     border: none;
-    padding: 15px 40px;
+    padding: 10px 25px;
     border-radius: 50px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 4px 10px rgba(184, 129, 194, 0.3);
-    margin: 20px 0;
-    }
-    
-    .write-button:hover {
+}
+
+.write-button:hover {
     background: linear-gradient(135deg, #a06fb1, #8e5ba0);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(184, 129, 194, 0.4);
-    }
-    
-    .template-suggestions {
+}
+
+.emotion-only-button {
+    background: white;
+    color: #666;
+    border: 1px solid #ddd;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.emotion-only-button:hover {
+    background: #f9f9f9;
+    border-color: #b881c2;
+    color: #b881c2;
+}
+
+.template-suggestions {
     display: flex;
     gap: 10px;
     margin-top: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    }
-    
-    .template-tag {
+}
+
+.template-tag {
     background: #f5f5f5;
     padding: 8px 15px;
     border-radius: 50px;
@@ -253,56 +309,56 @@
     color: #666;
     cursor: pointer;
     transition: all 0.3s;
-    }
-    
-    .template-tag:hover {
+}
+
+.template-tag:hover {
     background: #eaeaea;
     color: #b881c2;
-    }
-    
-    /* 최근 일기 섹션 */
-    .recent-diaries {
+}
+
+/* 최근 일기 섹션 */
+.recent-diaries {
     background: white;
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-    
-    .diary-cards {
+}
+
+.diary-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    }
-    
-    .diary-card {
+}
+
+.diary-card {
     background: #f9f9f9;
     border-radius: 10px;
     padding: 15px;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
     position: relative;
-    }
-    
-    .diary-card:hover {
+}
+
+.diary-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-    }
-    
-    .diary-date {
+}
+
+.diary-date {
     font-size: 0.8rem;
     color: #999;
     margin-bottom: 8px;
-    }
-    
-    .diary-title {
+}
+
+.diary-title {
     font-size: 1rem;
     color: #333;
     margin-bottom: 8px;
     font-weight: 600;
-    }
-    
-    .diary-preview {
+}
+
+.diary-preview {
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 15px;
@@ -310,97 +366,180 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    }
-    
-    .diary-footer {
+}
+
+.diary-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.8rem;
     color: #999;
-    }
-    
-    .diary-emotion {
+}
+
+.diary-emotion {
     display: flex;
     align-items: center;
     gap: 5px;
-    }
-    
-    .diary-emotion-dot {
+}
+
+.diary-emotion-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    }
-    
-    .diary-stats {
+}
+
+.diary-stats {
     display: flex;
     gap: 10px;
-    }
-    
-    .diary-visibility {
+}
+
+.diary-visibility {
     position: absolute;
     top: 15px;
     right: 15px;
     font-size: 0.8rem;
     color: #999;
-    }
-    
-    /* 사이드바 */
-    .sidebar {
+}
+
+/* 커뮤니티 인기 피드 섹션 */
+.community-popular {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.popular-feeds-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.popular-feed-item {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.popular-feed-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.feed-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ddd;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.feed-date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.feed-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.feed-preview {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.feed-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* 사이드바 */
+.sidebar {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    }
-    
-    .widget {
+}
+
+.widget {
     background: white;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-    
-    /* 스트릭 위젯 */
-    .streak-widget {
-    text-align: center;
-    }
-    
-    .streak-content {
+}
+
+/* 스트릭 & 달력 통합 위젯 */
+.streak-calendar-widget {
+    padding-bottom: 20px;
+}
+
+.streak-content {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 15px 0;
-    }
-    
-    .streak-count {
+}
+
+.streak-count {
     display: flex;
     flex-direction: column;
-    }
-    
-    .streak-number {
+}
+
+.streak-number {
     font-size: 2.5rem;
     font-weight: 700;
     color: #b881c2;
     line-height: 1;
-    }
-    
-    .streak-text {
+}
+
+.streak-text {
     font-size: 0.9rem;
     color: #888;
-    }
-    
-    .streak-flame {
+}
+
+.streak-flame {
     font-size: 2.8rem;
     margin-left: 10px;
     filter: drop-shadow(0 0 3px rgba(255, 165, 0, 0.5));
-    }
-    
-    .streak-calendar {
+}
+
+.streak-weekly-view {
     display: flex;
     justify-content: space-between;
     margin: 15px 0;
-    }
-    
-    .streak-day {
+}
+
+.streak-day {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -410,84 +549,85 @@
     font-size: 0.8rem;
     background: #f5f5f5;
     color: #999;
-    }
-    
-    .streak-day.completed {
+}
+
+.streak-day.completed {
     background: #b881c2;
     color: white;
-    }
-    
-    .streak-day.today {
+}
+
+.streak-day.today {
     background: white;
     border: 2px dashed #b881c2;
     color: #b881c2;
     font-weight: 600;
-    }
-    
-    .streak-message {
+}
+
+.streak-message {
     font-size: 0.85rem;
     color: #666;
     margin-top: 10px;
-    }
-    
-    .streak-badges {
+}
+
+.streak-badges {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-top: 15px;
-    }
-    
-    .streak-badge {
+}
+
+.streak-badge {
     width: 30px;
     height: 30px;
     font-size: 1.2rem;
     opacity: 0.3;
-    }
-    
-    .streak-badge.unlocked {
+}
+
+.streak-badge.unlocked {
     opacity: 1;
-    }
-    
-    /* 달력 위젯 */
-    .calendar-widget {
-    min-height: 250px;
-    }
-    
-    .calendar-header {
+}
+
+.monthly-calendar {
+    margin-top: 25px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 20px;
+}
+
+.calendar-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-    }
-    
-    .calendar-month {
+}
+
+.calendar-month {
     font-weight: 600;
     color: #333;
-    }
-    
-    .calendar-nav {
+}
+
+.calendar-nav {
     display: flex;
     gap: 10px;
-    }
-    
-    .calendar-nav span {
+}
+
+.calendar-nav span {
     cursor: pointer;
     color: #777;
 }
-    
-    .calendar-grid {
+
+.calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
-    }
-    
-    .calendar-day {
+}
+
+.calendar-day {
     text-align: center;
     font-size: 0.8rem;
     color: #999;
     padding: 5px 0;
-    }
-    
-    .calendar-date {
+}
+
+.calendar-date {
     text-align: center;
     height: 30px;
     width: 30px;
@@ -497,34 +637,66 @@
     font-size: 0.9rem;
     margin: 0 auto;
     position: relative;
-    }
-    
-    .calendar-date.current {
+}
+
+.calendar-date.current {
     background: #b881c2;
     color: white;
     border-radius: 50%;
-    }
-    
-    .calendar-date.has-diary::after {
+}
+
+/* 감정 색상이 표시된 달력 날짜 */
+.calendar-date.has-diary {
+    position: relative;
+}
+
+.calendar-date.has-diary::after {
     content: '';
     position: absolute;
     bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    background: #b881c2;
-    }
-    
-    /* 날씨 위젯 */
-    .weather-widget {
+}
+
+.calendar-date.happy-diary::after {
+    background-color: #FFEAA7;
+}
+
+.calendar-date.sad-diary::after {
+    background-color: #A3D8F4;
+}
+
+.calendar-date.angry-diary::after {
+    background-color: #FFB7B7;
+}
+
+.calendar-date.calm-diary::after {
+    background-color: #B5EAD7;
+}
+
+.calendar-date.anxious-diary::after {
+    background-color: #C7CEEA;
+}
+
+.calendar-date.excited-diary::after {
+    background-color: #FFD8BE;
+}
+
+.calendar-date.confused-diary::after {
+    background-color: #D8E2DC;
+}
+
+/* 날씨 위젯 */
+.weather-widget {
     display: flex;
     align-items: center;
     gap: 15px;
-    }
-    
-    .weather-icon {
+}
+
+.weather-icon {
     width: 60px;
     height: 60px;
     border-radius: 10px;
@@ -533,170 +705,196 @@
     align-items: center;
     font-size: 2rem;
     background: linear-gradient(135deg, #e1eaf8, #f8e1e7);
-    }
-    
-    .weather-info {
+}
+
+.weather-info {
     flex: 1;
-    }
-    
-    .weather-temp {
+}
+
+.weather-temp {
     font-size: 1.3rem;
     font-weight: 600;
     color: #333;
-    }
-    
-    .weather-desc {
+}
+
+.weather-desc {
     color: #777;
     font-size: 0.9rem;
     margin-top: 3px;
-    }
-    
-    .weather-location {
+}
+
+.weather-location {
     font-size: 0.8rem;
     color: #999;
     margin-top: 3px;
-    }
-    
-    /* 통계 위젯 */
-    .stats-widget {
-    min-height: 220px;
-    }
-    
-    .mood-stats {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-    }
-    
-    .mood-graph {
-    height: 150px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    padding: 15px;
-    position: relative;
-    }
-    
-    .graph-labels {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 15px 0;
-    color: #999;
-    font-size: 0.7rem;
-    }
-    
-    .graph-container {
-    margin-left: 30px;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    }
-    
-    .graph-days {
-    display: flex;
-    margin-left: 30px;
-    margin-top: 5px;
-    justify-content: space-between;
-    }
-    
-    .graph-day {
-    font-size: 0.7rem;
-    color: #999;
-    width: 14.28%;
+}
+
+/* 개선된 감정 통계 위젯 스타일 */
+.stats-widget {
+    min-height: auto;
+    padding-bottom: 20px;
+}
+
+.stats-subtitle {
+    font-size: 0.9rem;
+    color: #888;
     text-align: center;
-    }
-    
-    .mood-bar {
-    height: 100%;
-    width: 14.28%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    }
-    
-    .mood-segment {
-    width: 70%;
-    margin: 0 auto;
-    border-radius: 3px;
-    }
-    
-    .happy-segment {
-    background: #FFEAA7;
-    }
-    
-    .sad-segment {
-    background: #A3D8F4;
-    }
-    
-    .calm-segment {
-    background: #B5EAD7;
-    }
-    
-    .angry-segment {
-    background: #FFB7B7;
-    }
-    
-    .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-    justify-content: center;
-    }
-    
-    .legend-item {
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.emotion-chart-container {
     display: flex;
     align-items: center;
-    font-size: 0.8rem;
-    color: #777;
-    }
-    
-    .legend-color {
-    width: 10px;
-    height: 10px;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+/* 도넛 차트 스타일 */
+.donut-chart {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-center-text {
+    position: absolute;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.donut-segment {
+    transition: stroke-width 0.2s;
+}
+
+.donut-segment:hover {
+    stroke-width: 3.5;
+}
+
+/* 감정 통계 아이템 */
+.emotion-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    margin-left: 15px;
+}
+
+.emotion-stat-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.emotion-stat-item:hover {
+    background-color: #f9f9f9;
+}
+
+.emotion-dot {
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    margin-right: 5px;
-    }
-    
-    .view-more {
+    margin-right: 8px;
+}
+
+.emotion-count {
+    font-weight: 500;
+    color: #666;
+}
+
+/* 인사이트 메시지 스타일 */
+.emotion-insight {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.insight-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.insight-text {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+.highlight {
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+.highlight.happy {
+    background-color: rgba(255, 234, 167, 0.5);
+}
+
+.highlight.sad {
+    background-color: rgba(163, 216, 244, 0.5);
+}
+
+.highlight.angry {
+    background-color: rgba(255, 183, 183, 0.5);
+}
+
+.highlight.calm {
+    background-color: rgba(181, 234, 215, 0.5);
+}
+
+.highlight.anxious {
+    background-color: rgba(199, 206, 234, 0.5);
+}
+
+.highlight.excited {
+    background-color: rgba(255, 216, 190, 0.5);
+}
+
+.view-more {
     font-size: 0.9rem;
     color: #b881c2;
     display: block;
     text-align: center;
     margin-top: 12px;
     text-decoration: none;
-    }
-    
-    .view-more:hover {
+}
+
+.view-more:hover {
     text-decoration: underline;
-    }
-    
-    /* 푸터 */
+}
+
+/* 푸터 */
 .footer {
     text-align: center;
     margin-top: 30px;
     color: #888;
     font-size: 0.9rem;
-    }
-    
-    .inspiration-quote {
+}
+
+.inspiration-quote {
     font-style: italic;
     margin: 10px 0;
-    }
-    
-    .quick-actions {
+}
+
+.quick-actions {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin-top: 15px;
-    }
-    
-    .quick-action-btn {
+}
+
+.quick-action-btn {
     background: white;
     border: none;
     padding: 10px 20px;
@@ -706,10 +904,49 @@
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-    }
-    
-    .quick-action-btn:hover {
+}
+
+.quick-action-btn:hover {
     background: #f5f5f5;
     color: #b881c2;
     transform: translateY(-2px);
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
     }
+    
+    .diary-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .popular-feeds-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .emotion-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .emotion-only-button, .write-button {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .emotion-chart-container {
+        flex-direction: column;
+    }
+    
+    .emotion-stats {
+        margin-left: 0;
+        margin-top: 20px;
+        width: 100%;
+    }
+    
+    .donut-chart {
+        margin: 0 auto;
+    }
+}

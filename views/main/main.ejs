@@ -40,54 +40,60 @@
     <div class="main-content">
       <!-- 왼쪽 주요 콘텐츠 영역 -->
       <div class="content-area">
-        <!-- 감정 선택 섹션 -->
-        <div class="emotion-section">
-          <h3 class="section-title">오늘의 감정을 선택해보세요</h3>
+        <!-- 통합된 감정 선택 및 일기 작성 섹션 -->
+        <div class="emotion-diary-section">
+          <h3 class="section-title">오늘의 감정을 선택하고 이야기를 들려주세요</h3>
           <div class="emotion-grid">
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="happy">
               <div class="emotion-icon happy">😊</div>
               <span class="emotion-name">행복</span>
             </div>
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="sad">
               <div class="emotion-icon sad">😢</div>
               <span class="emotion-name">슬픔</span>
             </div>
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="angry">
               <div class="emotion-icon angry">😠</div>
               <span class="emotion-name">분노</span>
             </div>
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="calm">
               <div class="emotion-icon calm">😌</div>
               <span class="emotion-name">평온</span>
             </div>
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="anxious">
               <div class="emotion-icon anxious">😰</div>
               <span class="emotion-name">불안</span>
             </div>
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="tired">
               <div class="emotion-icon tired">😴</div>
               <span class="emotion-name">피곤</span>
             </div>
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="excited">
               <div class="emotion-icon excited">🤩</div>
               <span class="emotion-name">신남</span>
             </div>
-            <div class="emotion-item">
+            <div class="emotion-item" data-emotion="confused">
               <div class="emotion-icon confused">🤔</div>
               <span class="emotion-name">혼란</span>
             </div>
           </div>
-        </div>
-        
-        <!-- 일기 작성 섹션 -->
-        <div class="diary-write-section">
-          <h3 class="section-title">오늘의 이야기를 들려주세요</h3>
-          <button class="write-button">일기 작성하기</button>
-          <div class="template-suggestions">
-            <div class="template-tag">오늘의 일상</div>
-            <div class="template-tag">나의 감정 탐색</div>
-            <div class="template-tag">감사한 일 3가지</div>
-            <div class="template-tag">목표와 계획</div>
+          
+          <!-- 감정 선택 후 표시될 영역 -->
+          <div id="emotion-selected-area" class="emotion-selected-area">
+            <div class="selected-emotion-info">
+              <div id="selected-emotion-icon" class="selected-emotion-icon happy"></div>
+              <span id="selected-emotion-text">행복한 기분이군요!</span>
+            </div>
+            <div class="emotion-actions">
+              <button class="write-button">일기 작성하기</button>
+              <button class="emotion-only-button">감정만 기록하기</button>
+            </div>
+            <div class="template-suggestions">
+              <div class="template-tag">오늘의 일상</div>
+              <div class="template-tag">나의 감정 탐색</div>
+              <div class="template-tag">감사한 일 3가지</div>
+              <div class="template-tag">목표와 계획</div>
+            </div>
           </div>
         </div>
         
@@ -165,12 +171,117 @@
           </div>
           <a href="#" class="view-more">모든 일기 보기</a>
         </div>
+        
+        <!-- 커뮤니티 인기 피드 섹션 (그리드로 변경) -->
+        <div class="community-popular">
+          <h3 class="section-title">
+            <span class="title-icon">📰</span>
+            커뮤니티 인기 피드
+          </h3>
+          <p class="section-subtitle">무드구름 사용자들이 가장 많이 본 이야기</p>
+          
+          <div class="popular-feeds-grid">
+            <!-- 인기 피드 아이템 1 -->
+            <div class="popular-feed-item">
+              <div class="feed-header">
+                <div class="feed-user">
+                  <div class="user-avatar"></div>
+                  <div class="user-info">
+                    <div class="user-name">익명의 구름</div>
+                    <div class="feed-date">2025.03.27</div>
+                  </div>
+                </div>
+                <div class="feed-emotion">
+                  <div class="emotion-icon happy" style="width: 30px; height: 30px;">😊</div>
+                </div>
+              </div>
+              <div class="feed-title">여행 중 만난 선인장 가게</div>
+              <div class="feed-preview">우연히 들른 시장에서 발견한 작은 선인장 가게. 다양한 모양과 크기의 선인장들이 창가에 줄지어 있는 모습이 너무 예뻐서...</div>
+              <div class="feed-stats">
+                <span>❤️ 24</span>
+                <span>💬 8</span>
+                <span>👁️ 142</span>
+              </div>
+            </div>
+            
+            <!-- 인기 피드 아이템 2 -->
+            <div class="popular-feed-item">
+              <div class="feed-header">
+                <div class="feed-user">
+                  <div class="user-avatar"></div>
+                  <div class="user-info">
+                    <div class="user-name">구름 위의 꿈</div>
+                    <div class="feed-date">2025.03.29</div>
+                  </div>
+                </div>
+                <div class="feed-emotion">
+                  <div class="emotion-icon calm" style="width: 30px; height: 30px;">😌</div>
+                </div>
+              </div>
+              <div class="feed-title">비 오는 날의 창가</div>
+              <div class="feed-preview">오늘은 하루종일 비가 내렸다. 창가에 앉아 빗방울이 유리창을 타고 흘러내리는 모습을 바라보며 따뜻한 차 한 잔을...</div>
+              <div class="feed-stats">
+                <span>❤️ 18</span>
+                <span>💬 5</span>
+                <span>👁️ 98</span>
+              </div>
+            </div>
+            
+            <!-- 인기 피드 아이템 3 -->
+            <div class="popular-feed-item">
+              <div class="feed-header">
+                <div class="feed-user">
+                  <div class="user-avatar"></div>
+                  <div class="user-info">
+                    <div class="user-name">하늘빛 마음</div>
+                    <div class="feed-date">2025.03.28</div>
+                  </div>
+                </div>
+                <div class="feed-emotion">
+                  <div class="emotion-icon excited" style="width: 30px; height: 30px;">🤩</div>
+                </div>
+              </div>
+              <div class="feed-title">드디어 찾은 꿈의 직장</div>
+              <div class="feed-preview">3개월간의 긴 취업 준비 끝에 드디어 원하던 회사의 최종 합격 통보를 받았다. 그동안의 노력이 헛되지 않았다는...</div>
+              <div class="feed-stats">
+                <span>❤️ 32</span>
+                <span>💬 12</span>
+                <span>👁️ 176</span>
+              </div>
+            </div>
+            
+            <!-- 인기 피드 아이템 4 -->
+            <div class="popular-feed-item">
+              <div class="feed-header">
+                <div class="feed-user">
+                  <div class="user-avatar"></div>
+                  <div class="user-info">
+                    <div class="user-name">별빛 속삭임</div>
+                    <div class="feed-date">2025.03.26</div>
+                  </div>
+                </div>
+                <div class="feed-emotion">
+                  <div class="emotion-icon calm" style="width: 30px; height: 30px;">😌</div>
+                </div>
+              </div>
+              <div class="feed-title">일상 속 작은 행복</div>
+              <div class="feed-preview">매일 지나다니는 길가에 피어난 작은 꽃들을 발견했다. 평소에는 그냥 지나쳤을 것들이 오늘은 유독 아름답게 보였다...</div>
+              <div class="feed-stats">
+                <span>❤️ 15</span>
+                <span>💬 7</span>
+                <span>👁️ 89</span>
+              </div>
+            </div>
+          </div>
+          
+          <a href="#" class="view-more">커뮤니티 더 보기</a>
+        </div>
       </div>
       
       <!-- 사이드바 영역 -->
       <div class="sidebar">
-        <!-- 스트릭 위젯 (듀오링고 스타일) -->
-        <div class="widget streak-widget">
+        <!-- 스트릭 & 달력 통합 위젯 -->
+        <div class="widget streak-calendar-widget">
           <h3 class="section-title">나의 기록 스트릭</h3>
           <div class="streak-content">
             <div class="streak-count">
@@ -179,7 +290,8 @@
             </div>
             <div class="streak-flame">🔥</div>
           </div>
-          <div class="streak-calendar">
+          
+          <div class="streak-weekly-view">
             <div class="streak-day completed">월</div>
             <div class="streak-day completed">화</div>
             <div class="streak-day completed">수</div>
@@ -188,12 +300,60 @@
             <div class="streak-day completed">토</div>
             <div class="streak-day today">일</div>
           </div>
+          
           <div class="streak-message">오늘도 일기를 작성하고 스트릭을 이어가세요!</div>
+          
           <div class="streak-badges">
             <div class="streak-badge unlocked" title="3일 연속 작성">🥉</div>
             <div class="streak-badge unlocked" title="7일 연속 작성">🥈</div>
             <div class="streak-badge" title="30일 연속 작성">🥇</div>
             <div class="streak-badge" title="100일 연속 작성">💎</div>
+          </div>
+          
+          <div class="monthly-calendar">
+            <div class="calendar-header">
+              <span class="calendar-month">2025년 3월</span>
+              <div class="calendar-nav">
+                <span>◀</span>
+                <span>▶</span>
+              </div>
+            </div>
+            <div class="calendar-grid">
+              <div class="calendar-day">일</div>
+              <div class="calendar-day">월</div>
+              <div class="calendar-day">화</div>
+              <div class="calendar-day">수</div>
+              <div class="calendar-day">목</div>
+              <div class="calendar-day">금</div>
+              <div class="calendar-day">토</div>
+              
+              <!-- 날짜들 (간략화) -->
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date">1</div>
+              
+              <!-- 중략 -->
+              
+              <div class="calendar-date">23</div>
+              <div class="calendar-date">24</div>
+              <div class="calendar-date">25</div>
+              <div class="calendar-date has-diary happy-diary">26</div>
+              <div class="calendar-date has-diary excited-diary">27</div>
+              <div class="calendar-date has-diary anxious-diary">28</div>
+              <div class="calendar-date has-diary happy-diary">29</div>
+              
+              <div class="calendar-date current">30</div>
+              <div class="calendar-date">31</div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+            </div>
           </div>
         </div>
         
@@ -207,156 +367,75 @@
           </div>
         </div>
         
-        <!-- 감정 통계 위젯 -->
-<div class="widget stats-widget">
-    <h3 class="section-title">감정 통계</h3>
-    <div class="mood-stats">
-      <div class="mood-graph">
-        <div class="graph-labels">
-          <span>100%</span>
-          <span>50%</span>
-          <span>0%</span>
-        </div>
-        <div class="graph-container">
-          <div class="mood-bar">
-            <div class="mood-segment happy-segment" style="height: 70%;"></div>
+        <!-- 개선된 감정 통계 위젯 -->
+        <div class="widget stats-widget">
+          <h3 class="section-title">감정 리포트 요약</h3>
+          <p class="stats-subtitle">최근 7일간의 감정 흐름을 한눈에 보기</p>
+          
+          <!-- 도넛 차트 영역 -->
+          <div class="emotion-chart-container">
+            <div class="donut-chart">
+              <svg width="150" height="150" viewBox="0 0 42 42" class="donut">
+                <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#eee" stroke-width="3"></circle>
+                <!-- 행복 43% -->
+                <circle class="donut-segment happy-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFEAA7" stroke-width="3" stroke-dasharray="43 57" stroke-dashoffset="0"></circle>
+                <!-- 불안 29% -->
+                <circle class="donut-segment anxious-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#C7CEEA" stroke-width="3" stroke-dasharray="29 71" stroke-dashoffset="-43"></circle>
+                <!-- 신남 14% -->
+                <circle class="donut-segment excited-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFD8BE" stroke-width="3" stroke-dasharray="14 86" stroke-dashoffset="-72"></circle>
+                <!-- 슬픔 14% -->
+                <circle class="donut-segment sad-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#A3D8F4" stroke-width="3" stroke-dasharray="14 86" stroke-dashoffset="-86"></circle>
+              </svg>
+              <div class="chart-center-text">7일</div>
+            </div>
+            
+            <div class="emotion-stats">
+              <div class="emotion-stat-item">
+                <div class="emotion-dot happy"></div>
+                <span class="emotion-name">행복</span>
+                <span class="emotion-count">3회</span>
+              </div>
+              <div class="emotion-stat-item">
+                <div class="emotion-dot anxious"></div>
+                <span class="emotion-name">불안</span>
+                <span class="emotion-count">2회</span>
+              </div>
+              <div class="emotion-stat-item">
+                <div class="emotion-dot excited"></div>
+                <span class="emotion-name">신남</span>
+                <span class="emotion-count">1회</span>
+              </div>
+              <div class="emotion-stat-item">
+                <div class="emotion-dot sad"></div>
+                <span class="emotion-name">슬픔</span>
+                <span class="emotion-count">1회</span>
+              </div>
+            </div>
           </div>
-          <div class="mood-bar">
-            <div class="mood-segment sad-segment" style="height: 20%;"></div>
-            <div class="mood-segment calm-segment" style="height: 40%;"></div>
+          
+          <!-- 인사이트 메시지 -->
+          <div class="emotion-insight">
+            <div class="insight-icon">💡</div>
+            <p class="insight-text">이번 주 가장 많이 느낀 감정은 <span class="highlight happy">행복 😊</span>이에요!</p>
           </div>
-          <div class="mood-bar">
-            <div class="mood-segment angry-segment" style="height: 15%;"></div>
-            <div class="mood-segment happy-segment" style="height: 25%;"></div>
-          </div>
-          <div class="mood-bar">
-            <div class="mood-segment calm-segment" style="height: 80%;"></div>
-          </div>
-          <div class="mood-bar">
-            <div class="mood-segment sad-segment" style="height: 35%;"></div>
-            <div class="mood-segment angry-segment" style="height: 15%;"></div>
-          </div>
-          <div class="mood-bar">
-            <div class="mood-segment happy-segment" style="height: 60%;"></div>
-          </div>
-          <div class="mood-bar">
-            <div class="mood-segment calm-segment" style="height: 50%;"></div>
-          </div>
-        </div>
-      </div>
-      <div class="graph-days">
-        <div class="graph-day">24일</div>
-        <div class="graph-day">25일</div>
-        <div class="graph-day">26일</div>
-        <div class="graph-day">27일</div>
-        <div class="graph-day">28일</div>
-        <div class="graph-day">29일</div>
-        <div class="graph-day">30일</div>
-      </div>
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-color" style="background: #FFEAA7;"></div>
-          <span>행복</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background: #A3D8F4;"></div>
-          <span>슬픔</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background: #B5EAD7;"></div>
-          <span>평온</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color" style="background: #FFB7B7;"></div>
-          <span>분노</span>
+          
+          <a href="#" class="view-more">자세한 통계 보기</a>
         </div>
       </div>
     </div>
-    <a href="#" class="view-more">자세한 통계 보기</a>
-  </div>
-  
-  <!-- 달력 위젯 -->
-  <div class="widget calendar-widget">
-    <h3 class="section-title">달력</h3>
-    <div class="calendar-header">
-      <span class="calendar-month">2025년 3월</span>
-      <div class="calendar-nav">
-        <span>◀</span>
-        <span>▶</span>
+    
+    <!-- 푸터 -->
+    <div class="footer">
+      <p class="inspiration-quote">"오늘 하루의 감정이 내일의 행복을 만듭니다."</p>
+      <div class="quick-actions">
+        <button class="quick-action-btn">일기 쓰기</button>
+        <button class="quick-action-btn">친구 찾기</button>
+        <button class="quick-action-btn">설정</button>
       </div>
     </div>
-    <div class="calendar-grid">
-      <div class="calendar-day">일</div>
-      <div class="calendar-day">월</div>
-      <div class="calendar-day">화</div>
-      <div class="calendar-day">수</div>
-      <div class="calendar-day">목</div>
-      <div class="calendar-day">금</div>
-      <div class="calendar-day">토</div>
-      
-      <!-- 날짜들 -->
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date">1</div>
-      
-      <div class="calendar-date">2</div>
-      <div class="calendar-date">3</div>
-      <div class="calendar-date">4</div>
-      <div class="calendar-date">5</div>
-      <div class="calendar-date">6</div>
-      <div class="calendar-date">7</div>
-      <div class="calendar-date">8</div>
-      
-      <div class="calendar-date">9</div>
-      <div class="calendar-date">10</div>
-      <div class="calendar-date">11</div>
-      <div class="calendar-date">12</div>
-      <div class="calendar-date">13</div>
-      <div class="calendar-date">14</div>
-      <div class="calendar-date">15</div>
-      
-      <div class="calendar-date">16</div>
-      <div class="calendar-date">17</div>
-      <div class="calendar-date">18</div>
-      <div class="calendar-date">19</div>
-      <div class="calendar-date">20</div>
-      <div class="calendar-date">21</div>
-      <div class="calendar-date">22</div>
-      
-      <div class="calendar-date">23</div>
-      <div class="calendar-date">24</div>
-      <div class="calendar-date">25</div>
-      <div class="calendar-date has-diary">26</div>
-      <div class="calendar-date has-diary">27</div>
-      <div class="calendar-date has-diary">28</div>
-      <div class="calendar-date has-diary">29</div>
-      
-      <div class="calendar-date current">30</div>
-      <div class="calendar-date">31</div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-      <div class="calendar-date"></div>
-    </div>
   </div>
-  
-  </div>
-  </div>
-  
-  <!-- 푸터 -->
-  <div class="footer">
-    <p class="inspiration-quote">"오늘 하루의 감정이 내일의 행복을 만듭니다."</p>
-    <div class="quick-actions">
-      <button class="quick-action-btn">일기 쓰기</button>
-      <button class="quick-action-btn">친구 찾기</button>
-      <button class="quick-action-btn">설정</button>
-    </div>
-  </div>
-  </div>
-  </body>
-  </html>
+
+  <script src="/public/main/main.js"></script>
+</body>
+</html>
