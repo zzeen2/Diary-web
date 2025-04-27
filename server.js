@@ -43,6 +43,10 @@ app.get("/mypage", (req,res)=> {
 app.get("/statistics", (req,res)=> {
     res.render("statistics/statistics")
 })
+// 통계페이지 테스트 라우터
+app.get("/test", (req,res)=> {
+    res.render("diary/test")
+})
 
 
 

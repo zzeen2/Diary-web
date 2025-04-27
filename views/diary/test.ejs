@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>무드 구름 - 사용자 프로필</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8e1e7, #e1eaf8, #e1f8f4);
+      min-height: 100vh;
+      color: #555;
+      padding-bottom: 50px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* 네비게이션 바 */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-logo h1 {
+      font-size: 1.5rem;
+      color: #b881c2;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #777;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: #b881c2;
+    }
+
+    .nav-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .notification-icon {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff6b6b;
+      color: white;
+      font-size: 10px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-image {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+    }
+
+    /* 프로필 헤더 */
+    .profile-header {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .user-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #eee;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .user-bio {
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    .user-stats {
+      display: flex;
+      gap: 30px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #b881c2;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .profile-actions {
+      margin-left: auto;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #b881c2, #a06fb1);
+      color: white;
+      box-shadow: 0 4px 10px rgba(184, 129, 194, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #a06fb1, #8e5ba0);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(184, 129, 194, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #b881c2;
+      color: #b881c2;
+    }
+
+    .btn-outline:hover {
+      background: #f9f5fc;
+      transform: translateY(-2px);
+    }
+
+    /* 메인 콘텐츠 레이아웃 */
+    .profile-content {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    /* 감정 구름 네트워크 */
+    .mood-cloud-network {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      position: relative;
+      min-height: 400px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 20px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .time-filter {
+      display: flex;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .time-option {
+      padding: 5px 15px;
+      border-radius: 20px;
+      color: #777;
+      cursor: pointer;
+      background: #f5f5f5;
+      transition: all 0.3s;
+    }
+
+    .time-option.active {
+      background: #b881c2;
+      color: white;
+    }
+
+    .cloud-network-container {
+      position: relative;
+      height: 350px;
+      margin-top: 20px;
+    }
+
+    /* 중앙 성장 구름 */
+    .central-cloud {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .central-cloud img {
+      width: 100%;
+      height: auto;
+    }
+
+    .cloud-caption {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .cloud-growth {
+      font-weight: 600;
+      color: #b881c2;
+    }
+
+    .cloud-desc {
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    /* 감정 구름 네트워크 노드 */
+    .mood-node {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .node-content {
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+    }
+
+    .node-content img {
+      width: 100%;
+      height: auto;
+    }
+
+    .node-label {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .node-value {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* 개별 노드 위치 및 크기 */
+    .mood-node.node-1 {
+      top: 10%;
+      left: 30%;
+      width: 120px;
+      height: 120px;
+    }
+
+    .mood-node.node-2 {
+      top: 25%;
+      right: 20%;
+      width: 100px;
+      height: 100px;
+    }
+
+    .mood-node.node-3 {
+      bottom: 15%;
+      left: 20%;
+      width: 90px;
+      height: 90px;
+    }
+
+    .mood-node.node-4 {
+      bottom: 20%;
+      right: 25%;
+      width: 80px;
+      height: 80px;
+    }
+
+    .mood-node.node-5 {
+      top: 60%;
+      left: 10%;
+      width: 70px;
+      height: 70px;
+    }
+
+    /* 연결선 */
+    .connection-line {
+      position: absolute;
+      background: rgba(184, 129, 194, 0.2);
+      transform-origin: 0 0;
+      z-index: 1;
+      border-radius: 10px;
+    }
+
+    /* 일기 그리드 */
+    .diary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .diary-card {
+      background: #f9f9f9;
+      border-radius: 10px;
+      padding: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .diary-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .diary-date {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .diary-title {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .diary-preview {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 15px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .diary-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .diary-emotion {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .diary-emotion-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .diary-stats {
+      display: flex;
+      gap: 10px;
+    }
+
+    .diary-visibility {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .view-more {
+      font-size: 0.9rem;
+      color: #b881c2;
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+    }
+
+    .view-more:hover {
+      text-decoration: underline;
+    }
+
+    /* 사이드바 */
+    .profile-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .widget {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 스트릭 위젯 */
+    .streak-widget {
+      text-align: center;
+    }
+
+    .streak-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 15px 0;
+    }
+
+    .streak-count {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .streak-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #b881c2;
+      line-height: 1;
+    }
+
+    .streak-text {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .streak-flame {
+      font-size: 2.8rem;
+      margin-left: 10px;
+      filter: drop-shadow(0 0 3px rgba(255, 165, 0, 0.5));
+    }
+
+    .streak-calendar {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
+
+    .streak-day {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+      background: #f5f5f5;
+      color: #999;
+    }
+
+    .streak-day.completed {
+      background: #b881c2;
+      color: white;
+    }
+
+    .streak-day.today {
+      background: white;
+      border: 2px dashed #b881c2;
+      color: #b881c2;
+      font-weight: 600;
+    }
+
+    .streak-message {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    .streak-badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .streak-badge {
+      width: 30px;
+      height: 30px;
+      font-size: 1.2rem;
+      opacity: 0.3;
+    }
+
+    .streak-badge.unlocked {
+      opacity: 1;
+    }
+
+    /* 달력 위젯 */
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .calendar-month {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .calendar-nav span {
+      cursor: pointer;
+      color: #777;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .calendar-day {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+      padding: 5px 0;
+    }
+
+    .calendar-date {
+      text-align: center;
+      height: 30px;
+      width: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.9rem;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .calendar-date.current {
+      background: #b881c2;
+      color: white;
+      border-radius: 50%;
+    }
+
+    .calendar-date.has-diary::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #b881c2;
+    }
+    
+    /* 감정 색상 */
+    .happy {
+      background: #FFEAA7;
+    }
+
+    .sad {
+      background: #A3D8F4;
+    }
+
+    .angry {
+      background: #FFB7B7;
+    }
+
+    .calm {
+      background: #B5EAD7;
+    }
+
+    .anxious {
+      background: #C7CEEA;
+    }
+
+    .tired {
+      background: #E2D8F3;
+    }
+
+    .excited {
+      background: #FFD8BE;
+    }
+
+    .confused {
+      background: #D8E2DC;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+      <!-- 네비게이션 바 -->
+      <nav>
+        <div class="nav-logo">
+          <img src="/api/placeholder/40/40" alt="무드 구름 로고">
+          <h1>Mood Cloud</h1>
+        </div>
+        <div class="nav-links">
+          <a href="#">홈</a>
+          <a href="#">내 일기</a>
+          <a href="#" class="active">프로필</a>
+          <a href="#">커뮤니티</a>
+          <a href="#">통계</a>
+        </div>
+        <div class="nav-profile">
+          <div class="notification-icon">
+            <span>🔔</span>
+            <div class="notification-badge">2</div>
+          </div>
+          <div class="profile-image"></div>
+        </div>
+      </nav>
+  
+      <!-- 프로필 헤더 -->
+      <div class="profile-header">
+        <div class="user-avatar"></div>
+        <div class="user-info">
+          <h2 class="user-name">지은</h2>
+          <p class="user-bio">안녕하세요! 저는 매일 감정을 기록하며 더 나은 하루를 만들어가고 있어요.</p>
+          <div class="user-stats">
+            <div class="stat-item">
+              <div class="stat-value">125</div>
+              <div class="stat-label">일기</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">87</div>
+              <div class="stat-label">팔로워</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">54</div>
+              <div class="stat-label">팔로잉</div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-actions">
+          <button class="btn btn-outline">프로필 편집</button>
+        </div>
+      </div>
+  
+      <!-- 메인 콘텐츠 영역 -->
+      <div class="profile-content">
+        <!-- 왼쪽 주요 콘텐츠 영역 -->
+        <div class="content-area">
+          <!-- 감정 구름 네트워크 -->
+          <div class="mood-cloud-network">
+            <div class="section-title">
+              <span>감정 구름 네트워크</span>
+              <div class="time-filter">
+                <div class="time-option">1주일</div>
+                <div class="time-option active">1개월</div>
+                <div class="time-option">3개월</div>
+                <div class="time-option">전체</div>
+              </div>
+            </div>
+            
+            <div class="cloud-network-container">
+              <!-- 중앙 성장 구름 -->
+              <div class="central-cloud">
+                <img src="/api/placeholder/180/110" alt="성장 구름">
+                <div class="cloud-caption">
+                  <div class="cloud-growth">3단계 구름 (25% 성장)</div>
+                  <div class="cloud-desc">지난주보다 12% 성장했어요!</div>
+                </div>
+              </div>
+              
+              <!-- 감정 구름 네트워크 - 노드와 연결선 -->
+              <!-- 노드 1: 평온 (가장 큰 구름) -->
+              <div class="mood-node node-1">
+                <div class="node-content">
+                  <img src="/api/placeholder/120/70" alt="평온 구름">
+                </div>
+                <div class="node-label">평온</div>
+                <div class="node-value">45%</div>
+              </div>
+              
+              <!-- 노드 2: 행복 -->
+              <div class="mood-node node-2">
+                <div class="node-content">
+                  <img src="/api/placeholder/100/60" alt="행복 구름">
+                </div>
+                <div class="node-label">행복</div>
+                <div class="node-value">30%</div>
+              </div>
+              
+              <!-- 노드 3: 신남 -->
+              <div class="mood-node node-3">
+                <div class="node-content">
+                  <img src="/api/placeholder/90/50" alt="신남 구름">
+                </div>
+                <div class="node-label">신남</div>
+                <div class="node-value">15%</div>
+              </div>
+              
+              <!-- 노드 4: 불안 -->
+              <div class="mood-node node-4">
+                <div class="node-content">
+                  <img src="/api/placeholder/80/45" alt="불안 구름">
+                </div>
+                <div class="node-label">불안</div>
+                <div class="node-value">7%</div>
+              </div>
+              
+              <!-- 노드 5: 슬픔 -->
+              <div class="mood-node node-5">
+                <div class="node-content">
+                  <img src="/api/placeholder/70/40" alt="슬픔 구름">
+                </div>
+                <div class="node-label">슬픔</div>
+                <div class="node-value">3%</div>
+              </div>
+              
+              <!-- 연결선들 (CSS에서 위치 조정) -->
+              <div class="connection-line" style="width: 120px; height: 2px; top: 175px; left: 290px; transform: rotate(5deg);"></div>
+              <div class="connection-line" style="width: 140px; height: 2px; top: 165px; left: 420px; transform: rotate(15deg);"></div>
+              <div class="connection-line" style="width: 150px; height: 2px; top: 230px; left: 250px; transform: rotate(45deg);"></div>
+              <div class="connection-line" style="width: 120px; height: 2px; top: 230px; left: 420px; transform: rotate(-45deg);"></div>
+              <div class="connection-line" style="width: 100px; height: 2px; top: 205px; left: 150px; transform: rotate(15deg);"></div>
+            </div>
+          </div>
+          
+          <!-- 공개된 일기 섹션 -->
+          <div class="recent-diaries">
+            <div class="section-title">
+              <span>공개된 일기</span>
+            </div>
+            <div class="diary-grid">
+              <div class="diary-card">
+                <div class="diary-date">2025.03.29 토요일</div>
+                <div class="diary-title">봄 날씨와 함께한 산책</div>
+                <div class="diary-preview">오늘은 날씨가 정말 좋아서 오랜만에 한강공원에 산책을 나갔다. 벚꽃이 막 피기 시작해서 정말 예뻤다...</div>
+                <div class="diary-footer">
+                  <div class="diary-emotion">
+                    <div class="diary-emotion-dot happy"></div>
+                    <span>행복</span>
+                  </div>
+                  <div class="diary-stats">
+                    <span>❤️ 3</span>
+                    <span>💬 1</span>
+                  </div>
+                </div>
+                <div class="diary-visibility">🌎</div>
+              </div>
+              
+              <div class="diary-card">
+                <div class="diary-date">2025.03.27 목요일</div>
+                <div class="diary-title">오랜만에 만난 친구</div>
+                <div class="diary-preview">대학 때 친구를 오랜만에 만났다. 서로 많이 바빠서 자주 볼 수는 없지만, 만날 때마다 시간 가는 줄 모르게...</div>
+                <div class="diary-footer">
+                  <div class="diary-emotion">
+                    <div class="diary-emotion-dot excited"></div>
+                    <span>신남</span>
+                  </div>
+                  <div class="diary-stats">
+                    <span>❤️ 5</span>
+                    <span>💬 2</span>
+                  </div>
+                </div>
+                <div class="diary-visibility">🌎</div>
+              </div>
+              
+              <div class="diary-card">
+                <div class="diary-date">2025.03.26 수요일</div>
+                <div class="diary-title">평화로운 하루</div>
+                <div class="diary-preview">특별한 일은 없었지만, 평소보다 여유롭게 하루를 보냈다. 좋아하는 음악을 들으며 책도 읽고, 저녁에는...</div>
+                <div class="diary-footer">
+                  <div class="diary-emotion">
+                    <div class="diary-emotion-dot calm"></div>
+                    <span>평온</span>
+                  </div>
+                  <div class="diary-stats">
+                    <span>❤️ 2</span>
+                    <span>💬 0</span>
+                  </div>
+                </div>
+                <div class="diary-visibility">🌎</div>
+              </div>
+              
+              <div class="diary-card">
+                <div class="diary-date">2025.03.22 토요일</div>
+                <div class="diary-title">주말 카페 방문</div>
+                <div class="diary-preview">오랜만에 새로 생긴 카페에 가보았다. 인테리어가 예쁘고 조용해서 책 읽기 좋은 분위기였다. 다음에 또 가고 싶다...</div>
+                <div class="diary-footer">
+                  <div class="diary-emotion">
+                    <div class="diary-emotion-dot calm"></div>
+                    <span>평온</span>
+                  </div>
+                  <div class="diary-stats">
+                    <span>❤️ 4</span>
+                    <span>💬 1</span>
+                  </div>
+                </div>
+                <div class="diary-visibility">🌎</div>
+              </div>
+            </div>
+            <a href="#" class="view-more">모든 공개 일기 보기</a>
+          </div>
+        </div>
+        
+        <!-- 사이드바 영역 -->
+        <div class="profile-sidebar">
+          <!-- 스트릭 위젯 -->
+          <div class="widget streak-widget">
+            <h3 class="section-title">기록 스트릭</h3>
+            <div class="streak-content">
+              <div class="streak-count">
+                <span class="streak-number">7</span>
+                <span class="streak-text">일 연속</span>
+              </div>
+              <div class="streak-flame">🔥</div>
+            </div>
+            <div class="streak-calendar">
+              <div class="streak-day completed">월</div>
+              <div class="streak-day completed">화</div>
+              <div class="streak-day completed">수</div>
+              <div class="streak-day completed">목</div>
+              <div class="streak-day completed">금</div>
+              <div class="streak-day completed">토</div>
+              <div class="streak-day today">일</div>
+            </div>
+            <div class="streak-message">오늘도 일기를 작성하고 스트릭을 이어가세요!</div>
+            <div class="streak-badges">
+              <div class="streak-badge unlocked" title="3일 연속 작성">🥉</div>
+              <div class="streak-badge unlocked" title="7일 연속 작성">🥈</div>
+              <div class="streak-badge" title="30일 연속 작성">🥇</div>
+              <div class="streak-badge" title="100일 연속 작성">💎</div>
+            </div>
+          </div>
+          
+          <!-- 달력 위젯 -->
+          <div class="widget calendar-widget">
+            <h3 class="section-title">달력</h3>
+            <div class="calendar-header">
+              <span class="calendar-month">2025년 3월</span>
+              <div class="calendar-nav">
+                <span>◀</span>
+                <span>▶</span>
+              </div>
+            </div>
+            <div class="calendar-grid">
+              <div class="calendar-day">일</div>
+              <div class="calendar-day">월</div>
+              <div class="calendar-day">화</div>
+              <div class="calendar-day">수</div>
+              <div class="calendar-day">목</div>
+              <div class="calendar-day">금</div>
+              <div class="calendar-day">토</div>
+              
+              <!-- 날짜들 -->
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date">1</div>
+              
+              <div class="calendar-date">2</div>
+              <div class="calendar-date">3</div>
+              <div class="calendar-date">4</div>
+              <div class="calendar-date">5</div>
+              <div class="calendar-date">6</div>
+              <div class="calendar-date">7</div>
+              <div class="calendar-date">8</div>
+              
+              <div class="calendar-date">9</div>
+              <div class="calendar-date">10</div>
+              <div class="calendar-date">11</div>
+              <div class="calendar-date">12</div>
+              <div class="calendar-date">13</div>
+              <div class="calendar-date">14</div>
+              <div class="calendar-date">15</div>
+              
+              <div class="calendar-date">16</div>
+              <div class="calendar-date">17</div>
+              <div class="calendar-date">18</div>
+              <div class="calendar-date">19</div>
+              <div class="calendar-date">20</div>
+              <div class="calendar-date">21</div>
+              <div class="calendar-date has-diary">22</div>
+              
+              <div class="calendar-date">23</div>
+              <div class="calendar-date">24</div>
+              <div class="calendar-date">25</div>
+              <div class="calendar-date has-diary">26</div>
+              <div class="calendar-date has-diary">27</div>
+              <div class="calendar-date">28</div>
+              <div class="calendar-date has-diary">29</div>
+              
+              <div class="calendar-date current">30</div>
+              <div class="calendar-date">31</div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+              <div class="calendar-date"></div>
+            </div>
+          </div>
+          
+          <!-- 태그 클라우드 위젯 -->
+          <div class="widget tag-cloud-widget">
+            <h3 class="section-title">자주 사용한 태그</h3>
+            <div class="tag-cloud">
+              <span class="tag" style="font-size: 1.4rem; color: #b881c2;">일상</span>
+              <span class="tag" style="font-size: 1.2rem; color: #9bafd9;">음악</span>
+              <span class="tag" style="font-size: 1.3rem; color: #7cc9c3;">여행</span>
+              <span class="tag" style="font-size: 1.1rem; color: #ea97b9;">영화</span>
+              <span class="tag" style="font-size: 1rem; color: #adad7f;">책</span>
+              <span class="tag" style="font-size: 0.9rem; color: #6a9f8e;">가족</span>
+              <span class="tag" style="font-size: 1.2rem; color: #d87e6e;">친구</span>
+              <span class="tag" style="font-size: 0.9rem; color: #7b91c9;">날씨</span>
+              <span class="tag" style="font-size: 1rem; color: #bd8c7d;">음식</span>
+              <span class="tag" style="font-size: 0.8rem; color: #90b77d;">취미</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        // 이 스크립트는 실제 구현 시 구름 네트워크의 연결선을 동적으로 그리는 데 사용할 수 있습니다
+        document.addEventListener('DOMContentLoaded', function() {
+          // 예시 코드: 구름 노드에 마우스 오버 시 효과
+          const moodNodes = document.querySelectorAll('.mood-node');
+          
+          moodNodes.forEach(node => {
+            node.addEventListener('mouseenter', function() {
+              this.style.transform = 'scale(1.05)';
+              this.style.transition = 'transform 0.3s';
+              
+              // 연결된 선 강조
+              const connectedLines = document.querySelectorAll('.connection-line');
+              connectedLines.forEach(line => {
+                line.style.backgroundColor = 'rgba(184, 129, 194, 0.5)';
+                line.style.height = '3px';
+              });
+            });
+            
+            node.addEventListener('mouseleave', function() {
+              this.style.transform = 'scale(1)';
+              
+              // 연결된 선 원래대로
+              const connectedLines = document.querySelectorAll('.connection-line');
+              connectedLines.forEach(line => {
+                line.style.backgroundColor = 'rgba(184, 129, 194, 0.2)';
+                line.style.height = '2px';
+              });
+            });
+          });
+          
+          // 중앙 구름 효과
+          const centralCloud = document.querySelector('.central-cloud');
+          centralCloud.addEventListener('mouseenter', function() {
+            this.style.transform = 'translate(-50%, -50%) scale(1.05)';
+            this.style.transition = 'transform 0.3s';
+          });
+          
+          centralCloud.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(-50%, -50%) scale(1)';
+          });
+        });
+      </script>

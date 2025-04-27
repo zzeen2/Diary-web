@@ -1,50 +1,58 @@
-// 유저 테이블
-const{DataTypes, Model} = require("sequelize")
+const {DataTypes, Model} = require("sequelize");
 
-class Users extends Model {
-    static init (sequelize) {
-        return super.init({
-            id : {
-                type : DataTypes.INTEGER,
-                autoIncrement : true,
-                primaryKey: this
-            },
-            uid : { // 사용자 아이디
-                type : DataTypes.STRING(50),
-                allowNull: false,
-                unique: true,
-            },
-            upw : {
-                type : DataTypes.STRING(200),
-                allowNull: false
-            },
-            email:{
-                type:DataTypes.STRING(100),
-                unique:true,
-                allowNull: false,
-                validate:{ // 이메일 형식 맞는지 확인하기
-                    isEmail:true
+class User extends Model {
+    static init(sequelize) {
+        return super.init(
+            {
+                id : {
+                    type : DataTypes.INTEGER,
+                    autoIncrement : true,
+                    primaryKey : true
+                },
+                uid : {
+                    type : DataTypes.STRING(100), // 카카오아이디, 가입아이디
+                    allowNull : false,
+                    unique : true
+                },
+                upw : {
+                    type : DataTypes.STRING(200),
+                    allowNull : false
+                },
+                email : {
+                    type : DataTypes.STRING(100),
+                    allowNull:true
+                },
+                name: {
+                    type : DataTypes.STRING(30),
+                    allowNull : false
+                },
+                profile_image : {
+                    type : DataTypes.STRING(255),
+                    allowNull: true
+                },
+                bio : {
+                    type : DataTypes.STRING(300),
+                    allowNull : true
                 }
             },
-            name : { // 사용자 이름
-                type : DataTypes.STRING(10),
-                allowNull:false
-            },
-            profile_image : {
-                type: DataTypes.STRING(255),
-                allowNull : true
+            {
+                sequelize,
+                modelName: "User",
+                tableName: "users",
+                charset: "utf8mb4",
+                collate: "utf8mb4_general_ci",
+                timestamps: true 
             }
-        },{
-            sequelize,
-            modelName : "Users",
-            tableName:"users",
-            charset : "utf8mb4",
-            collate : "utf8mb4_general_ci"
-        })
+        )
     }
-    static associate(models){
-        models.User.hasMany(models)
+    static associate(models) {
+        models.User.hasMany(models.Diary, {foreignKey : "user_id", sourceKey : "id", as : "Diaries"})
+        models.User.hasMany(models.Comment, {foreignKey : "user_id", sourceKey : "id", as : "comments"})
+        models.User.belongsToMany(models.User, {through:"follows", foreignKey : "following_id", otherKey : "follower_id", as : "followers"})
+        models.User.belongsToMany(models.User, {through:"follows", foreignKey : "follower_id", otherKey: "following_id", as : "followings"})
+        models.User.hasOne(models.UserEmotionCloud, {foreignKey : "user_id", sourceKey : "id", as : "emotionCloud"})
+        models.User.belongsToMany(models.Badge, {foreignKey : "user_id", through : "user_badge" , as :"badges"})
     }
 }
 
-module.exports = Users;
+module.exports = User;
